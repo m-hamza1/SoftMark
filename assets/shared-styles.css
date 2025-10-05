@@ -237,17 +237,18 @@ body {
 @media (max-width: 640px) {
   /* Add spacing to hero sections on all pages */
   section:first-of-type {
-    padding-top: 8rem !important;
+    padding-top: 10rem !important;
     margin-top: 0 !important;
   }
   
-  /* Add top margin to announcement badge */
-  .inline-flex.items-center.gap-2.rounded-full {
-    margin-top: 3rem !important;
+  /* Add top margin to the first announcement badge in hero section */
+  .flex.flex-col.text-left .mb-6:first-child {
+    margin-top: 4rem !important;
+    margin-bottom: 2rem !important;
   }
   
-  /* Additional spacing for the badge container */
-  .mb-6 {
+  /* Target the announcement span directly */
+  span.inline-flex.items-center.gap-2.rounded-full.border {
     margin-top: 2rem !important;
   }
   
@@ -260,6 +261,11 @@ body {
   img {
     max-width: 100%;
     height: auto;
+  }
+  
+  /* Adjust hero content spacing */
+  .space-y-6 {
+    margin-top: 2rem !important;
   }
 }
 

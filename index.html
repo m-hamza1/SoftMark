@@ -2909,29 +2909,26 @@
     </script>
     <!-- Main JavaScript -->
     <script>
-      // Update current time
-      function updateCurrentTime() {
+      // Smoother time update using requestAnimationFrame
+      function updateCurrentTimeSmooth() {
         const now = new Date();
         const timeElement = document.getElementById('current-timestamp');
         if (timeElement) {
-          // Format: Day, YYYY-MM-DD HH:MM:SS (24-hour format)
-          const dayName = now.toLocaleDateString('en-US', { weekday: 'long' }); // Full day name (e.g., "Friday")
+          const dayName = now.toLocaleDateString('en-US', { weekday: 'long' });
           const year = now.getFullYear();
           const month = String(now.getMonth() + 1).padStart(2, '0');
           const day = String(now.getDate()).padStart(2, '0');
           const hours = String(now.getHours()).padStart(2, '0');
           const minutes = String(now.getMinutes()).padStart(2, '0');
           const seconds = String(now.getSeconds()).padStart(2, '0');
-          
-          const dateStr = `${year}-${month}-${day}`; // YYYY-MM-DD format
-          const timeStr = `${hours}:${minutes}:${seconds}`; // 24-hour format
+          const dateStr = `${year}-${month}-${day}`;
+          const timeStr = `${hours}:${minutes}:${seconds}`;
           timeElement.textContent = `${dayName}, ${dateStr} ${timeStr}`;
         }
+        window.requestAnimationFrame(updateCurrentTimeSmooth);
       }
 
-      // Initialize time and update every second
-      updateCurrentTime();
-      setInterval(updateCurrentTime, 1000);
+      updateCurrentTimeSmooth();
       // Modal Management
       function openModal(modalId) {
         const modal = document.getElementById(modalId);

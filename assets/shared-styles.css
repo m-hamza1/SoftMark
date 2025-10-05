@@ -233,3 +233,40 @@ body {
   }
 }
 
+/* Mobile Specific Styles - Hero Section & Badge Spacing */
+@media (max-width: 640px) {
+  /* Add spacing to hero sections on all pages */
+  section:first-of-type {
+    padding-top: 8rem !important;
+    margin-top: 0 !important;
+  }
+  
+  /* Add top margin to announcement badge */
+  .inline-flex.items-center.gap-2.rounded-full {
+    margin-top: 3rem !important;
+  }
+  
+  /* Additional spacing for the badge container */
+  .mb-6 {
+    margin-top: 2rem !important;
+  }
+  
+  /* Reduce spacing between sections */
+  section + section {
+    margin-top: 2rem !important;
+  }
+  
+  /* Fix image alignment */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Desktop Styles - Hero Section Spacing */
+@media (min-width: 641px) {
+  section:first-of-type {
+    padding-top: 10rem !important;
+    margin-top: 2rem !important;
+  }
+}

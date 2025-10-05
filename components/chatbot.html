@@ -1,0 +1,57 @@
+
+<!-- Single AI Chatbot Button -->
+<div id="chat-button" onclick="openAIChat()">
+  <div class="shimmer"></div>
+  <div class="icon-wrapper">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chat-icon">
+      <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3.04 1.05 4.43L2 22l5.57-1.05C9.96 21.64 11.46 22 13 22h-1c5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+      <circle cx="8.5" cy="12.5" r=".5"/>
+      <circle cx="12" cy="12.5" r=".5"/>
+      <circle cx="15.5" cy="12.5" r=".5"/>
+    </svg>
+  </div>
+</div>
+
+<!-- PROFESSIONAL AI CHATBOT CONTAINER -->
+<div id="ai-chat-container">
+  <!-- Professional Header with SoftMark Branding -->
+  <div class="chat-header">
+    <div class="branding">
+      <div class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+      <div>
+        <h4 class="title">Sarah</h4>
+        <p class="subtitle">SoftMark AI Assistant</p>
+      </div>
+    </div>
+    <button onclick="closeAIChat()" class="close-btn">×</button>
+  </div>
+  
+  <!-- Messages Area with SoftMark Styling -->
+  <div id="ai-messages"></div>
+  
+  <!-- Professional Input Area -->
+  <div class="chat-input-area">
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <input type="text" id="ai-input" class="chat-input" placeholder="Ask me anything about automation..." onkeypress="handleAIEnter(event)">
+      <button onclick="sendAIMessage()" class="send-button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SOUND EFFECTS FOR AI CHAT -->
+<audio id="chat-open-sound" preload="auto">
+  <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmIZBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmIZBTE=" type="audio/wav">
+</audio>
+
+<audio id="chat-message-sound" preload="auto">
+  <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmIZBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBjedz/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEYBTy/" type="audio/wav">
+</audio>

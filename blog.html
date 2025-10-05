@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/shared-styles.css">
+  <link rel="stylesheet" href="assets/chat-ui.css">
+  <script src="assets/components-loader.js"></script>
+  <script src="assets/header-menu.js"></script>
+  <script src="assets/main.js"></script>
+  <script src="assets/form-handler.js"></script>
+  <script src="assets/chatbot.js"></script>
+  <title>Blog — SoftMark AI Automation Platform</title>
+  <style>
+    /* Enhanced Modal Animations */
+    .backdrop-animation {
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .backdrop-visible {
+      opacity: 1;
+      backdrop-filter: blur(20px);
+    }
+
+    .modal-content {
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: top center;
+      transform: translateY(-100px) scale(0.9);
+      opacity: 0;
+    }
+
+    @keyframes modalSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95) rotateX(2deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0deg);
+      }
+    }
+
+    .modal-enter {
+      animation: modalSlideIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* Exit animation */
+    @keyframes modalSlideOut {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0.9) rotateX(-5deg);
+      }
+    }
+
+    .modal-exit {
+      animation: modalSlideOut 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    /* Blog Card Animations */
+    .blog-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.25);
+    }
+
+    /* Category badge styles */
+    .category-badge {
+      transition: all 0.3s ease;
+    }
+
+    .category-badge:hover {
+      transform: scale(1.05);
+    }
+
+    /* Spinner animation for form submit buttons */
+    @keyframes spinner {
+      to {transform: rotate(360deg);}
+    }
+    
+    .spinner:before {     
+      content: '';
+      box-sizing: border-box;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      border-top-color: #a78bfa;
+      animation: spinner .8s linear infinite;
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- Background glow -->
+  <div class="bg-glow">
+    <div class="bg-glow-primary"></div>
+    <div class="bg-glow-secondary"></div>
+  </div>
+
+  <!-- Header Component -->
+  <div id="header-placeholder"></div>
+
+  <!-- Hero Section -->
+  <section class="relative z-10 bg-[#000000]">
+    <div class="max-w-6xl sm:px-6 lg:px-8 sm:pt-16 bg-[url(https://s.mj.run/0i_tDBV5Cqk?w=800&amp;q=80)] bg-cover mt-0 mr-auto mb-0 ml-auto pt-0 pr-0 pl-0">
+      <div class="flex flex-col text-center mr-auto mb-30 ml-auto space-y-6 items-center">
+        <div class="mb-6">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-200 backdrop-blur">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sparkles" class="lucide lucide-sparkles h-3.5 w-3.5 text-violet-300"><path d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"></path></svg>
+            Insights & Resources
+          </span>
+        </div>
+
+        <h1 class="sm:text-6xl md:text-7xl text-4xl font-semibold text-white tracking-tight">
+          AI Automation <br><span class="gradient-text">Blog</span>
+        </h1>
+        <p class="max-w-2xl sm:text-lg text-base text-zinc-300 mt-0">
+          Discover the latest trends, best practices, and insights in business automation, AI technology, 
+          and digital transformation. Learn from industry experts and real-world case studies.
+        </p>
+
+        <div class="flex gap-3 mt-8 mb-0 pb-[60px] items-center">
+          <button onclick="openModal('trial')" class="inline-flex items-center gap-2 shadow-violet-900/25 text-sm font-semibold text-white bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full pt-2.5 pr-5 pb-2.5 pl-5 shadow-lg transform-gpu transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-6px_rgba(139,92,246,0.4)] hover:scale-[1.02] active:scale-[0.98] active:duration-75" style="transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s cubic-bezier(0.4, 0, 0.2, 1);">Start free trial<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></button>
+          <a href="#" onclick="openVideoModal()" class="inline-flex items-center gap-2 hover:bg-white/5 text-sm font-medium text-zinc-200 border-white/10 border rounded-full pt-2.5 pr-5 pb-2.5 pl-5 backdrop-blur-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="play" class="lucide lucide-play h-4 w-4"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg>
+            Watch demo
+          </a>
+        </div>
+      </div>
+
+      <!-- App Preview -->
+      <div class="relative sm:mt-16 mt-12">
+        <!-- Glow -->
+        <div class="absolute inset-0 -top-8 mx-auto h-56 max-w-5xl rounded-[28px] bg-gradient-to-r from-violet-500/30 via-fuchsia-500/20 to-indigo-500/30 blur-2xl"></div>
+
+        <section class="relative ring-1 ring-white/10 supports-[backdrop-filter]:bg-white/5 overflow-hidden text-white bg-white/5 border-slate-50/10 border rounded-2xl backdrop-blur-xl" style="mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 20%, transparent 100%);">
+          <!-- Sidebar (icons only) -->
+          <nav class="hidden sm:flex flex-col absolute inset-y-0 left-0 w-14 ring-1 ring-white/10 z-10 border-slate-50/0 border-r pt-4 pr-2 pb-4 pl-2 backdrop-blur items-center justify-between" aria-label="Primary">
+            <div class="flex flex-col gap-3 items-center">
+              <button type="button" class="h-10 w-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 ring-1 ring-white/20 shadow-lg shadow-violet-900/25 flex items-center justify-center" title="Content Dashboard" aria-label="Content Dashboard">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[20px] h-[20px]" style="color: rgb(255, 255, 255);"><path d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"></path></svg>
+              </button>
+              <div class="h-px w-8 bg-white/10"></div>
+              <button type="button" class="h-10 w-10 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center" title="Article Search" aria-label="Article Search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[20px] h-[20px]" style="color: rgb(203, 213, 225);"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+              </button>
+              <button type="button" class="h-10 w-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 ring-1 ring-white/20 shadow-lg shadow-violet-900/20 text-white flex items-center justify-center" title="Publishing Calendar" aria-label="Publishing Calendar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[20px] h-[20px]" style="color: rgb(255, 255, 255);"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+              </button>
+              <button type="button" class="h-10 w-10 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center" title="Content Analytics" aria-label="Content Analytics">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+              </button>
+              <button type="button" class="h-10 w-10 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center" title="Content Library" aria-label="Content Library">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+              </button>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+              <button type="button" class="h-10 w-10 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center" title="Content Settings" aria-label="Content Settings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M14 17H5"></path><path d="M19 7h-9"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
+              </button>
+              <button type="button" class="h-10 w-10 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center" title="Support" aria-label="Support">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+              </button>
+            </div>
+          </nav>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 sm:pl-16">
+            <!-- Left: Content Dashboard -->
+            <div class="sm:p-8 lg:p-10 pt-5 pr-5 pb-5 pl-5">
+              <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                  <h2 class="sm:text-2xl text-xl font-semibold text-white tracking-tight">Content Hub</h2>
+                  <div class="flex items-center gap-2 text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"></path></svg>
+                    <span class="text-xs sm:text-sm font-medium">Blog Analytics</span>
+                  </div>
+                </div>
+
+                <div class="space-y-8">
+                  <div class="space-y-3">
+                    <div class="flex items-start gap-3">
+                      <div class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                      <p class="text-sm sm:text-base text-slate-300">
+                        <strong class="text-white">Latest:</strong> AI Automation Trends 2025
+                      </p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                      <div class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-400"></div>
+                      <p class="text-sm sm:text-base text-slate-300">
+                        <strong class="text-white">Popular:</strong> Workflow Optimization Guide
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="grid gap-4 grid-cols-2">
+                    <div class="rounded-lg border border-white/10 bg-white/5 p-4">
+                      <h3 class="text-white font-medium mb-1">Total Articles</h3>
+                      <p class="text-2xl font-bold text-white">47</p>
+                    </div>
+                    <div class="rounded-lg border border-white/10 bg-white/5 p-4">
+                      <h3 class="text-white font-medium mb-1">This Month</h3>
+                      <p class="text-2xl font-bold text-white">8</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Trending Topics -->
+            <div class="sm:p-8 lg:p-10 pt-5 pr-5 pb-5 pl-5">
+              <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                  <h2 class="sm:text-2xl text-xl font-semibold text-white tracking-tight">Trending Topics</h2>
+                  <div class="flex items-center gap-2 text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                    <span class="text-xs sm:text-sm font-medium">Hot Topics</span>
+                  </div>
+                </div>
+
+                <div class="space-y-4">
+                  <div class="flex items-center gap-3">
+                    <div class="h-2 w-2 rounded-full bg-emerald-400"></div>
+                    <span class="text-sm text-slate-300">AI Automation</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <div class="h-2 w-2 rounded-full bg-blue-400"></div>
+                    <span class="text-sm text-slate-300">Workflow Optimization</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <div class="h-2 w-2 rounded-full bg-yellow-400"></div>
+                    <span class="text-sm text-slate-300">Digital Transformation</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <div class="h-2 w-2 rounded-full bg-purple-400"></div>
+                    <span class="text-sm text-slate-300">Process Automation</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <div class="h-2 w-2 rounded-full bg-pink-400"></div>
+                    <span class="text-sm text-slate-300">Business Intelligence</span>
+                  </div>
+                </div>
+
+                <button class="w-full bg-gradient-to-r from-violet-500 to-indigo-600 text-white rounded-lg py-3 px-4 font-medium hover:opacity-90 transition-opacity">
+                  Subscribe to Newsletter
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Article -->
+  <section class="relative z-10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <h2 class="text-2xl font-semibold text-white mb-2">Featured Article</h2>
+        <div class="w-12 h-0.5 bg-gradient-to-r from-violet-500 to-indigo-600"></div>
+      </div>
+      
+      <div class="blog-card card overflow-hidden cursor-pointer">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="relative h-64 lg:h-auto">
+            <div class="absolute inset-0 bg-gradient-to-br from-violet-500/30 via-fuchsia-500/20 to-indigo-500/30"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-white/50"><path d="M12 2v4l3 3"></path><path d="m6 8 4 4-6 6"></path><path d="M20 8v5h-5"></path></svg>
+            </div>
+          </div>
+          <div class="p-8 lg:p-12">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="category-badge bg-gradient-to-r from-violet-500/20 to-indigo-500/20 text-violet-300 border border-violet-500/30 rounded-full px-3 py-1 text-xs font-medium">
+                AI & Automation
+              </span>
+              <span class="text-zinc-400 text-sm">October 1, 2025</span>
+            </div>
+            <h3 class="text-2xl md:text-3xl font-semibold text-white mb-4">
+              The Future of Business Automation: How AI is Reshaping Workflows in 2025
+            </h3>
+            <p class="text-zinc-300 mb-6">
+              Explore the latest developments in artificial intelligence and how forward-thinking companies 
+              are leveraging AI-powered automation to transform their operations, reduce costs, and accelerate growth. 
+              From predictive analytics to intelligent process optimization.
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+                  <span class="text-white font-semibold text-sm">SM</span>
+                </div>
+                <div>
+                  <p class="text-white font-medium">SoftMark Team</p>
+                  <p class="text-zinc-400 text-sm">Product & Strategy</p>
+                </div>
+              </div>
+              <div class="flex-1"></div>
+              <span class="text-zinc-400 text-sm">8 min read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Grid -->
+  <section class="relative z-10 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-12">
+        <h2 class="text-2xl font-semibold text-white mb-2">Latest Articles</h2>
+        <div class="w-12 h-0.5 bg-gradient-to-r from-violet-500 to-indigo-600"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Article 1 -->
+        <article class="blog-card card overflow-hidden cursor-pointer">
+          <div class="relative h-48">
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/30 via-teal-500/20 to-cyan-500/30"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-white/50"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="category-badge bg-gradient-to-r from-emerald-500/20 to-teal-500/20 text-emerald-300 border border-emerald-500/30 rounded-full px-3 py-1 text-xs font-medium">
+                Analytics
+              </span>
+              <span class="text-zinc-400 text-sm">Sep 28, 2025</span>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">
+              5 Key Metrics Every Automation Team Should Track
+            </h3>
+            <p class="text-zinc-300 text-sm mb-4">
+              Learn which performance indicators matter most when measuring the success of your automation initiatives.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+                  <span class="text-white font-semibold text-xs">AJ</span>
+                </div>
+                <span class="text-zinc-400 text-sm">Alex Johnson</span>
+              </div>
+              <span class="text-zinc-400 text-sm">5 min read</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="blog-card card overflow-hidden cursor-pointer">
+          <div class="relative h-48">
+            <div class="absolute inset-0 bg-gradient-to-br from-orange-500/30 via-red-500/20 to-pink-500/30"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-white/50"><path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"></path></svg>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="category-badge bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-300 border border-orange-500/30 rounded-full px-3 py-1 text-xs font-medium">
+                Security
+              </span>
+              <span class="text-zinc-400 text-sm">Sep 25, 2025</span>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">
+              Enterprise Security Best Practices for Automation Platforms
+            </h3>
+            <p class="text-zinc-300 text-sm mb-4">
+              Ensure your automated workflows are secure with these essential security measures and compliance guidelines.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+                  <span class="text-white font-semibold text-xs">ML</span>
+                </div>
+                <span class="text-zinc-400 text-sm">Maria Lopez</span>
+              </div>
+              <span class="text-zinc-400 text-sm">7 min read</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="blog-card card overflow-hidden cursor-pointer">
+          <div class="relative h-48">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/30 via-indigo-500/20 to-purple-500/30"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-white/50"><path d="M14 17H5"></path><path d="M19 7h-9"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="category-badge bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-300 border border-blue-500/30 rounded-full px-3 py-1 text-xs font-medium">
+                Integration
+              </span>
+              <span class="text-zinc-400 text-sm">Sep 22, 2025</span>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">
+              Building Seamless Integrations: A Developer's Guide
+            </h3>
+            <p class="text-zinc-300 text-sm mb-4">
+              Step-by-step guide to creating robust integrations that connect your favorite tools and services.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                  <span class="text-white font-semibold text-xs">RC</span>
+                </div>
+                <span class="text-zinc-400 text-sm">Ryan Chen</span>
+              </div>
+              <span class="text-zinc-400 text-sm">6 min read</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 4 -->
+        <article class="blog-card card overflow-hidden cursor-pointer">
+          <div class="relative h-48">
+            <div class="absolute inset-0 bg-gradient-to-br from-green-500/30 via-emerald-500/20 to-teal-500/30"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-white/50"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="category-badge bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-300 border border-green-500/30 rounded-full px-3 py-1 text-xs font-medium">
+                Case Study
+              </span>
+              <span class="text-zinc-400 text-sm">Sep 20, 2025</span>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">
+              How TechCorp Reduced Manual Work by 80% with SoftMark
+            </h3>
+            <p class="text-zinc-300 text-sm mb-4">
+              Real-world case study showing how a Fortune 500 company transformed their operations using automation.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                  <span class="text-white font-semibold text-xs">SM</span>
+                </div>
+                <span class="text-zinc-400 text-sm">SoftMark Team</span>
+              </div>
+              <span class="text-zinc-400 text-sm">12 min read</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 5 -->
+        <article class="blog-card card overflow-hidden cursor-pointer">
+          <div class="relative h-48">
+            <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/30 via-orange-500/20 to-red-500/30"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-white/50"><path d="M9 12l2 2 4-4"></path><path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path></svg>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="category-badge bg-gradient-to-r from-yellow-500/20 to-orange-500/20 text-yellow-300 border border-yellow-500/30 rounded-full px-3 py-1 text-xs font-medium">
+                Tutorial
+              </span>
+              <span class="text-zinc-400 text-sm">Sep 18, 2025</span>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">
+              Getting Started: Your First Automation Workflow in 10 Minutes
+            </h3>
+            <p class="text-zinc-300 text-sm mb-4">
+              A beginner-friendly tutorial to create your first automated workflow from start to finish.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center">
+                  <span class="text-white font-semibold text-xs">SK</span>
+                </div>
+                <span class="text-zinc-400 text-sm">Sarah Kim</span>
+              </div>
+              <span class="text-zinc-400 text-sm">10 min read</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 6 -->
+        <article class="blog-card card overflow-hidden cursor-pointer">
+          <div class="relative h-48">
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/30 via-pink-500/20 to-rose-500/30"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-white/50"><path d="M12 2v4l3 3"></path><path d="m6 8 4 4-6 6"></path><path d="M20 8v5h-5"></path></svg>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="category-badge bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border border-purple-500/30 rounded-full px-3 py-1 text-xs font-medium">
+                Industry Trends
+              </span>
+              <span class="text-zinc-400 text-sm">Sep 15, 2025</span>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">
+              The Rise of No-Code Automation: Democratizing Business Processes
+            </h3>
+            <p class="text-zinc-300 text-sm mb-4">
+              Exploring how no-code platforms are making automation accessible to non-technical teams worldwide.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                  <span class="text-white font-semibold text-xs">DW</span>
+                </div>
+                <span class="text-zinc-400 text-sm">David Wilson</span>
+              </div>
+              <span class="text-zinc-400 text-sm">9 min read</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Load More Button -->
+      <div class="text-center mt-12">
+        <button onclick="openModal('newsletter')" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-lg px-8 py-3 font-medium transition-all duration-300">
+          Load More Articles
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Signup -->
+  <section class="relative z-10 py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-indigo-500/10 backdrop-blur-xl border border-white/10 rounded-3xl p-12 text-center">
+        <h2 class="text-3xl md:text-4xl font-semibold text-white mb-6">
+          Stay Informed
+        </h2>
+        <p class="text-zinc-300 mb-8 max-w-2xl mx-auto">
+          Get the latest automation insights, industry trends, and product updates delivered directly to your inbox. 
+          Join thousands of automation professionals who trust our content.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+          <input type="email" placeholder="Enter your email" class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent">
+          <button onclick="openModal('newsletter')" class="bg-gradient-to-br from-violet-500 to-indigo-600 hover:from-violet-600 hover:to-indigo-700 text-white rounded-lg px-6 py-3 font-medium transition-all duration-300 shadow-lg">
+            Subscribe
+          </button>
+        </div>
+        <p class="text-zinc-400 text-sm mt-4">
+          No spam. Unsubscribe at any time.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Component -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Chatbot Component -->
+  <div id="chatbot-placeholder"></div>
+
+  <!-- Newsletter Modal -->
+  <div id="newsletter" class="fixed inset-0 z-50 hidden" onclick="handleBackdropClick('newsletter')">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-md backdrop-animation"></div>
+    <div class="flex items-center justify-center min-h-screen p-4 relative z-10" onclick="event.stopPropagation()">
+      <div class="modal-content bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl max-w-md w-full">
+        <!-- Modal Header -->
+        <div class="modal-header flex justify-between items-center p-6 border-b border-white/10">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <h2 class="text-2xl font-bold text-white">Subscribe</h2>
+          </div>
+          <button onclick="closeModal('newsletter')" class="close-btn w-10 h-10 flex items-center justify-center text-zinc-300 hover:text-white rounded-full hover:bg-white/10 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body p-6">
+          <form id="newsletterForm" class="space-y-4">
+            <div>
+              <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email Address</label>
+              <input type="email" id="email" name="email" required class="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent" placeholder="Enter your email">
+            </div>
+            <button type="submit" class="w-full bg-gradient-to-br from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white rounded-lg py-3 px-4 font-medium transition-all duration-300 shadow-lg">
+              Subscribe to Newsletter
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Consultation Modal -->
+  <div id="consultation" class="fixed inset-0 bg-black/60 backdrop-blur-md z-50 hidden opacity-0 transition-all duration-500 ease-out">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl max-w-lg w-full p-6 transform scale-90 rotate-1 transition-all duration-500 ease-out shadow-violet-500/20">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-semibold text-white drop-shadow-lg">Book Your Meeting</h2>
+          <button onclick="closeModal('consultation')" class="text-zinc-300 hover:text-white transition-all duration-300 hover:scale-110 hover:rotate-90 p-1 rounded-full hover:bg-white/10">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <form id="consultationForm" action="process-booking.php" method="POST" class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="country" class="block text-sm font-medium text-zinc-200 mb-2">Country *</label>
+            <select id="country" name="country" required class="w-full px-3 py-2.5 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm text-sm">
+              <option value="" disabled selected>Select your country</option>
+              <option value="PK">Pakistan</option>
+              <option value="US">United States</option>
+              <option value="UK">United Kingdom</option>
+              <option value="CA">Canada</option>
+              <option value="AU">Australia</option>
+              <option value="DE">Germany</option>
+              <option value="FR">France</option>
+              <option value="IN">India</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="name" class="block text-sm font-medium text-zinc-200 mb-2">Full Name *</label>
+            <input type="text" id="name" name="name" required class="w-full px-3 py-2.5 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm text-sm">
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-zinc-200 mb-2">Email Address *</label>
+            <input type="email" id="email" name="email" required class="w-full px-3 py-2.5 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm text-sm">
+          </div>
+          <div>
+            <label for="date" class="block text-sm font-medium text-zinc-200 mb-2">Date *</label>
+            <input type="date" id="date" name="date" required class="w-full px-3 py-2.5 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm text-sm">
+          </div>
+          <div class="col-span-2">
+            <label for="time" class="block text-sm font-medium text-zinc-200 mb-2">Time *</label>
+            <input type="time" id="time" name="time" required class="w-full px-3 py-2.5 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm text-sm">
+          </div>
+          <div class="col-span-2">
+            <label for="message" class="block text-sm font-medium text-zinc-200 mb-2">Message (Optional)</label>
+            <textarea id="message" name="message" rows="3" class="w-full px-3 py-2.5 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm resize-none text-sm"></textarea>
+          </div>
+          <div class="col-span-2 flex gap-3 pt-2">
+            <button type="submit" class="flex-1 bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-semibold py-2.5 px-4 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-violet-500/30 active:scale-95 text-sm">
+              <span class="flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+                Book Meeting
+              </span>
+            </button>
+            <button type="button" onclick="closeModal('consultation')" class="flex-1 bg-white/10 text-zinc-200 font-medium py-2.5 px-4 rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 backdrop-blur-sm text-sm">Cancel</button>
+          </div>
+        </form>
+        <div class="mt-4 text-center text-xs text-zinc-400">
+          <p>By submitting, you agree to our <a href="#" class="text-violet-400 hover:text-violet-300 underline">Privacy Policy</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript -->
+  <script>
+    // Modal Management
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('hidden', 'opacity-0');
+        setTimeout(() => {
+          modal.classList.add('opacity-100');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0');
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }, 300);
+      }
+    }
+
+    // Handle backdrop click
+    function handleBackdropClick(modalId) {
+      closeModal(modalId);
+    }
+
+    // Newsletter subscription handler
+    function subscribeNewsletter() {
+      openModal('newsletter');
+    }
+
+    // Initialize event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Form submission handling
+      const forms = document.querySelectorAll('form');
+      forms.forEach(form => {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const formData = new FormData(form);
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const originalText = submitBtn?.textContent;
+          
+          try {
+            if (submitBtn) {
+              submitBtn.disabled = true;
+              submitBtn.innerHTML = '<span class="spinner">Sending...</span>';
+            }
+            
+            // Simulate form submission
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'mt-4 p-4 bg-green-500/10 border border-green-500/30 rounded-lg text-green-300';
+            successMessage.textContent = form.id === 'newsletterForm' ? 'Successfully subscribed to newsletter!' : 'Thank you! Your booking has been received successfully.';
+            form.appendChild(successMessage);
+            
+            // Reset form
+            form.reset();
+            
+            // Remove success message after 5 seconds
+            setTimeout(() => {
+              successMessage.remove();
+            }, 5000);
+            
+          } catch (error) {
+            console.error('Form submission error:', error);
+            alert('There was an error submitting the form. Please try again.');
+          } finally {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

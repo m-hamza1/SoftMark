@@ -237,24 +237,18 @@ body {
 @media (max-width: 640px) {
   /* Add spacing to hero sections on all pages */
   section:first-of-type {
-    padding-top: 10rem !important;
+    padding-top: 4rem !important;
     margin-top: 0 !important;
   }
   
-  /* Add top margin to the first announcement badge in hero section */
-  .flex.flex-col.text-left .mb-6:first-child {
-    margin-top: 4rem !important;
-    margin-bottom: 2rem !important;
-  }
-  
-  /* Target the announcement span directly */
+  /* Reduce top margin for announcement badge */
   span.inline-flex.items-center.gap-2.rounded-full.border {
-    margin-top: 2rem !important;
+    margin-top: 0 !important;
   }
   
   /* Reduce spacing between sections */
   section + section {
-    margin-top: 2rem !important;
+    margin-top: -1rem !important;
   }
   
   /* Fix image alignment */
@@ -263,16 +257,134 @@ body {
     height: auto;
   }
   
-  /* Adjust hero content spacing */
+  /* Adjust content spacing */
   .space-y-6 {
-    margin-top: 2rem !important;
+    margin-top: 1rem !important;
   }
 }
 
-/* Desktop Styles - Hero Section Spacing */
-@media (min-width: 641px) {
+
+/* ========================================
+   SECTION SPACING OPTIMIZATION
+   Reduce spacing between all sections
+   ======================================== */
+
+/* Override all padding classes for sections */
+section {
+  margin-bottom: 0 !important;
+}
+
+/* Hero Section - Reduce padding */
+section.min-h-screen {
+  padding-top: 6rem !important;
+  padding-bottom: 3rem !important;
+}
+
+/* All section padding overrides */
+.py-20 {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+
+.py-24 {
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
+}
+
+.py-32 {
+  padding-top: 5rem !important;
+  padding-bottom: 5rem !important;
+}
+
+/* Small screens */
+@media (min-width: 640px) {
+  .sm\:py-20 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .sm\:py-24 {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  .sm\:py-32 {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
+
+  .sm\:py-40 {
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  .lg\:py-28 {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
+
+  .lg\:py-32 {
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+  }
+
+  .lg\:py-40 {
+    padding-top: 7rem !important;
+    padding-bottom: 7rem !important;
+  }
+
+  .lg\:py-48 {
+    padding-top: 8rem !important;
+    padding-bottom: 8rem !important;
+  }
+}
+
+/* Reduce space between sections */
+section + section {
+  margin-top: -2rem !important;
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 640px) {
+  section + section {
+    margin-top: -1rem !important;
+  }
+
+  .py-20, .py-24, .py-32 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+}
+
+/* Remove excessive top padding */
+.pt-20 {
+  padding-top: 2rem !important;
+}
+
+@media (min-width: 640px) {
+  .sm\:pt-24 {
+    padding-top: 3rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:pt-32 {
+    padding-top: 4rem !important;
+  }
+}
+
+/* Container spacing adjustments */
+.container {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+
+@media (max-width: 640px) {
   section:first-of-type {
-    padding-top: 10rem !important;
-    margin-top: 2rem !important;
+    padding-top: 4rem !important;
   }
 }

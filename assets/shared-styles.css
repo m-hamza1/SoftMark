@@ -1,12 +1,24 @@
 /* Shared Styles for SoftMark Website */
 
+/* Global Styles */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Base Background and Typography */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Smooth scroll for iOS */
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #f4f4f5; /* zinc-100 */
   background-color: #0a0a12;
   font-family: 'Inter', sans-serif;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 /* Background Glow Effects */
@@ -265,126 +277,458 @@ body {
 
 
 /* ========================================
-   SECTION SPACING OPTIMIZATION
-   Reduce spacing between all sections
+   RESPONSIVE DESIGN IMPROVEMENTS
    ======================================== */
 
-/* Override all padding classes for sections */
-section {
-  margin-bottom: 0 !important;
-}
-
-/* Hero Section - Reduce padding */
-section.min-h-screen {
-  padding-top: 6rem !important;
-  padding-bottom: 3rem !important;
-}
-
-/* All section padding overrides */
-.py-20 {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
-}
-
-.py-24 {
-  padding-top: 4rem !important;
-  padding-bottom: 4rem !important;
-}
-
-.py-32 {
-  padding-top: 5rem !important;
-  padding-bottom: 5rem !important;
-}
-
-/* Small screens */
-@media (min-width: 640px) {
-  .sm\:py-20 {
-    padding-top: 3rem !important;
-    padding-bottom: 3rem !important;
-  }
-
-  .sm\:py-24 {
-    padding-top: 4rem !important;
-    padding-bottom: 4rem !important;
-  }
-
-  .sm\:py-32 {
-    padding-top: 5rem !important;
-    padding-bottom: 5rem !important;
-  }
-
-  .sm\:py-40 {
-    padding-top: 6rem !important;
-    padding-bottom: 6rem !important;
-  }
-}
-
-/* Large screens */
-@media (min-width: 1024px) {
-  .lg\:py-28 {
-    padding-top: 5rem !important;
-    padding-bottom: 5rem !important;
-  }
-
-  .lg\:py-32 {
-    padding-top: 6rem !important;
-    padding-bottom: 6rem !important;
-  }
-
-  .lg\:py-40 {
-    padding-top: 7rem !important;
-    padding-bottom: 7rem !important;
-  }
-
-  .lg\:py-48 {
-    padding-top: 8rem !important;
-    padding-bottom: 8rem !important;
-  }
-}
-
-/* Reduce space between sections */
-section + section {
-  margin-top: -2rem !important;
-}
-
-/* Mobile specific adjustments */
+/* Base responsive improvements */
 @media (max-width: 640px) {
-  section + section {
-    margin-top: -1rem !important;
+  /* Better mobile spacing */
+  body {
+    font-size: 14px;
+    line-height: 1.5;
   }
 
-  .py-20, .py-24, .py-32 {
-    padding-top: 2rem !important;
+  /* Hero section mobile optimization */
+  section:first-of-type {
+    padding-top: 5rem !important;
     padding-bottom: 2rem !important;
   }
-}
 
-/* Remove excessive top padding */
-.pt-20 {
-  padding-top: 2rem !important;
-}
+  /* Hero text sizing */
+  .hero-title {
+    font-size: 2.5rem !important;
+    line-height: 1.1 !important;
+    /* Keep left alignment but nudge right slightly on small screens */
+    text-align: left !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    margin-right: 0.5rem !important;
+    max-width: 95% !important;
+  }
 
-@media (min-width: 640px) {
-  .sm\:pt-24 {
-    padding-top: 3rem !important;
+  /* Hero subtitle */
+  .hero-subtitle {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    max-width: 95% !important;
+    text-align: left !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Button improvements for mobile */
+  .hero-buttons {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    width: 100% !important;
+  }
+
+  .hero-buttons a {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* App preview mobile layout */
+  .app-preview-container {
+    margin-top: 1.5rem !important;
+    padding: 1.25rem 1rem !important;
+  }
+
+  .app-preview-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    align-items: start !important;
+  }
+
+  /* Timeline section mobile */
+  .timeline-section {
+    padding: 1rem !important;
+  }
+
+  .timeline-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  /* App preview cards - ensure consistent sizing on mobile */
+  .app-preview-card {
+    width: 100% !important;
+    min-height: 160px !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+
+
+/* Tablet layout for app preview: 2 columns */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .app-preview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+
+  .app-preview-card {
+    min-height: 180px !important;
   }
 }
 
-@media (min-width: 1024px) {
-  .lg\:pt-32 {
-    padding-top: 4rem !important;
+/* Desktop layout for app preview: 3 columns on large screens */
+@media (min-width: 1025px) {
+  .app-preview-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1.25rem !important;
+  }
+
+  .app-preview-container {
+    padding: 2rem !important;
+  }
+
+  .app-preview-card {
+    min-height: 200px !important;
+  }
+}
+  .timeline-title {
+    font-size: 1.25rem !important;
+  }
+
+  /* Calendar section mobile */
+  .calendar-section {
+    padding: 1rem !important;
+  }
+
+  .calendar-header {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  .calendar-grid {
+    font-size: 0.8rem !important;
+  }
+
+  /* Meetings section mobile */
+  .meetings-section {
+    padding: 1rem !important;
+  }
+
+  .meetings-list {
+    gap: 0.5rem !important;
+  }
+
+  .meeting-item {
+    padding: 0.75rem !important;
+  }
+
+  /* Modal improvements for mobile */
+  .modal-content {
+    margin: 1rem !important;
+    max-height: calc(100vh - 2rem) !important;
+    overflow-y: auto !important;
+  }
+
+  .modal-form {
+    padding: 1rem !important;
+  }
+
+  /* Responsive modal forms */
+  .modal-content .grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .modal-content .col-span-2 {
+    grid-column: span 1 !important;
+  }
+
+  /* Restore grid on larger screens */
+  @media (min-width: 768px) {
+    .modal-content .grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .modal-content .col-span-2 {
+      grid-column: span 2 !important;
+    }
+  }
+
+  /* Form improvements */
+  .form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .form-input {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+  }
+
+  /* Better touch targets */
+  button, .btn, a[role="button"] {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+
+  /* Navigation improvements */
+  .mobile-menu {
+    padding: 1rem !important;
+  }
+
+  .mobile-menu-link {
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
+  }
+
+  /* Card improvements */
+  .feature-card {
+    padding: 1.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Section spacing */
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Image responsiveness */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Table responsiveness */
+  table {
+    font-size: 0.8rem !important;
+  }
+
+  /* Hide desktop-only elements */
+  .desktop-only {
+    display: none !important;
   }
 }
 
-/* Container spacing adjustments */
-.container {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+/* Tablet improvements (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Hero section tablet */
+  .hero-title {
+    font-size: 3.5rem !important;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem !important;
+  }
+
+  /* App preview tablet layout */
+  .app-preview-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .timeline-section,
+  .calendar-section {
+    padding: 1.5rem !important;
+  }
+
+  /* Better spacing for tablets */
+  section {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
 }
 
+/* Large screen improvements */
+@media (min-width: 1280px) {
+  /* Hero section large screens */
+  .hero-title {
+    font-size: 5rem !important;
+  }
+
+  /* Better spacing for large screens */
+  .container {
+    max-width: 1280px !important;
+  }
+}
+
+/* ========================================
+   SMOOTH SCROLLING & PERFORMANCE
+   ======================================== */
+
+/* Smooth scrolling for all browsers */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Better focus states for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* ========================================
+   MOBILE MENU ENHANCEMENTS
+   ======================================== */
 
 @media (max-width: 640px) {
-  section:first-of-type {
-    padding-top: 4rem !important;
+  .mobile-menu {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 18, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+  }
+
+  .mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .mobile-menu-link {
+    display: block;
+    padding: 1rem;
+    color: #e4e4e7;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .mobile-menu-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+}
+
+/* ========================================
+   TOUCH & INTERACTION IMPROVEMENTS
+   ======================================== */
+
+/* Better touch targets */
+@media (hover: none) and (pointer: coarse) {
+  /* Mobile and tablet touch targets */
+  button,
+  .button,
+  a[role="button"],
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem 1rem;
+  }
+
+  /* Form inputs */
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.75rem;
+  }
+
+  /* Links in content */
+  .content a {
+    padding: 0.25rem 0.5rem;
+    margin: -0.25rem -0.5rem;
+  }
+}
+
+/* ========================================
+   ANIMATION & TRANSITION IMPROVEMENTS
+   ======================================== */
+
+/* Smooth transitions for all interactive elements */
+button,
+.btn,
+.card,
+.nav-link,
+input,
+textarea,
+select {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+  position: relative;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ========================================
+   ACCESSIBILITY IMPROVEMENTS
+   ======================================== */
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  button,
+  .btn {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

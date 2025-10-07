@@ -585,22 +585,28 @@ select:focus-visible {
 
 @media (max-width: 640px) {
   .mobile-menu {
-    position: fixed;
+    position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     background: rgba(10, 10, 18, 0.95);
     backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    transform: translateY(-100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    margin-top: 0.5rem;
+    transform: translateY(-10px);
     opacity: 0;
+    visibility: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   .mobile-menu.open {
     transform: translateY(0);
     opacity: 1;
+    visibility: visible;
   }
 
   .mobile-menu-link {
@@ -610,7 +616,7 @@ select:focus-visible {
     text-decoration: none;
     border-radius: 0.5rem;
     transition: all 0.2s ease;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
   }
 

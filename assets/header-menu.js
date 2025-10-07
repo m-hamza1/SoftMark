@@ -19,30 +19,19 @@
       e.preventDefault();
       e.stopPropagation();
       
-      const isHidden = mobileMenu.classList.contains('hidden');
+      const isOpen = mobileMenu.classList.contains('open');
       
-      if (isHidden) {
-        // Open menu with smooth animation
+      if (!isOpen) {
+        // Open menu
         mobileMenu.classList.remove('hidden');
-        mobileMenu.style.removeProperty('display');
-        // Force reflow
-        mobileMenu.offsetHeight;
-        // Trigger animation
-        requestAnimationFrame(() => {
-          mobileMenu.style.maxHeight = '100vh';
-          mobileMenu.style.opacity = '1';
-          mobileMenu.style.transform = 'translateY(0)';
-        });
+        mobileMenu.classList.add('open');
         menuOpenIcon.classList.add('hidden');
         menuCloseIcon.classList.remove('hidden');
       } else {
-        // Close menu with smooth animation
-        mobileMenu.style.maxHeight = '0';
-        mobileMenu.style.opacity = '0';
-        mobileMenu.style.transform = 'translateY(-10px)';
+        // Close menu
+        mobileMenu.classList.remove('open');
         setTimeout(() => {
           mobileMenu.classList.add('hidden');
-          mobileMenu.style.display = 'none';
         }, 300);
         menuOpenIcon.classList.remove('hidden');
         menuCloseIcon.classList.add('hidden');
@@ -55,13 +44,10 @@
         e.preventDefault();
         e.stopPropagation();
         
-        // Close menu with smooth animation
-        mobileMenu.style.maxHeight = '0';
-        mobileMenu.style.opacity = '0';
-        mobileMenu.style.transform = 'translateY(-10px)';
+        // Close menu
+        mobileMenu.classList.remove('open');
         setTimeout(() => {
           mobileMenu.classList.add('hidden');
-          mobileMenu.style.display = 'none';
         }, 300);
         menuOpenIcon.classList.remove('hidden');
         menuCloseIcon.classList.add('hidden');
@@ -72,12 +58,9 @@
     const mobileLinks = mobileMenu.querySelectorAll('a');
     mobileLinks.forEach(link => {
       link.addEventListener('click', function() {
-        mobileMenu.style.maxHeight = '0';
-        mobileMenu.style.opacity = '0';
-        mobileMenu.style.transform = 'translateY(-10px)';
+        mobileMenu.classList.remove('open');
         setTimeout(() => {
           mobileMenu.classList.add('hidden');
-          mobileMenu.style.display = 'none';
         }, 300);
         menuOpenIcon.classList.remove('hidden');
         menuCloseIcon.classList.add('hidden');

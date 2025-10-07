@@ -1,5 +1,14 @@
 /* Shared Styles for SoftMark Website */
 
+/* Mobile Menu Base Styles - Ensure it works on all screens */
+#mobile-menu {
+  display: none;
+}
+
+#mobile-menu.open {
+  display: block !important;
+}
+
 /* Global Styles */
 html {
   scroll-behavior: smooth;
@@ -651,6 +660,14 @@ body {
   .desktop-only {
     display: none !important;
   }
+  
+  /* Ensure mobile menu button is visible on mobile */
+  @media (max-width: 767px) {
+    #mobile-menu-btn {
+      display: inline-flex !important;
+      visibility: visible !important;
+    }
+  }
 
   /* Notes section mobile responsiveness */
   .notes-section {
@@ -875,32 +892,33 @@ select:focus-visible {
 
 @media (max-width: 767px) {
   .mobile-menu {
-    position: fixed;
-    top: 4rem; /* Height of the header */
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(10, 10, 18, 0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    position: fixed !important;
+    top: 4rem !important; /* Height of the header */
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(10, 10, 18, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.75rem 0.75rem 0 0;
     margin-top: 0;
-    transform: translateY(100%);
-    opacity: 0;
-    display: none;
-    transition: transform 0.4s ease-out, opacity 0.3s ease-out;
-    z-index: 1000;
-    max-height: calc(100vh - 4rem);
-    overflow-y: auto;
+    transform: translateY(100%) !important;
+    opacity: 0 !important;
+    display: none !important;
+    transition: transform 0.4s ease-out, opacity 0.3s ease-out !important;
+    z-index: 1000 !important;
+    max-height: calc(100vh - 4rem) !important;
+    overflow-y: auto !important;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    width: 100% !important;
   }
 
   .mobile-menu.open {
-    transform: translateY(0);
-    opacity: 1;
-    display: block;
-    transition: transform 0.4s ease-out, opacity 0.3s ease-out;
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    display: block !important;
+    transition: transform 0.4s ease-out, opacity 0.3s ease-out !important;
   }
 
   .mobile-menu-link {
@@ -960,6 +978,13 @@ select:focus-visible {
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    display: flex !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure mobile menu button is visible on all mobile devices */
+  #mobile-menu-btn {
+    z-index: 100;
   }
 
   /* Form inputs */

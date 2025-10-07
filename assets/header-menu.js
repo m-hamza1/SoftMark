@@ -10,13 +10,22 @@
     const menuCloseIcon = document.getElementById('menu-close-icon');
     let menuTransitionTimeout;
 
+    // Debug logging
+    console.log('Initializing mobile menu...');
+    console.log('Mobile Menu Button:', mobileMenuBtn);
+    console.log('Mobile Menu:', mobileMenu);
+
     if (!mobileMenuBtn || !mobileMenu) {
+      console.log('Menu elements not found, retrying...');
       setTimeout(initMobileMenu, 100);
       return;
     }
+    
+    console.log('Mobile menu initialized successfully!');
 
     // Function to open the menu
     function openMobileMenu() {
+      console.log('Opening mobile menu...');
       clearTimeout(menuTransitionTimeout);
       document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
       mobileMenu.style.display = 'block';
@@ -27,10 +36,12 @@
       mobileMenu.classList.add('open');
       menuOpenIcon.classList.add('hidden');
       menuCloseIcon.classList.remove('hidden');
+      console.log('Mobile menu opened');
     }
 
     // Function to close the menu
     function closeMobileMenu() {
+      console.log('Closing mobile menu...');
       document.body.style.overflow = ''; // Restore scrolling
       mobileMenu.classList.remove('open');
       
@@ -43,10 +54,12 @@
       
       menuOpenIcon.classList.remove('hidden');
       menuCloseIcon.classList.add('hidden');
+      console.log('Mobile menu closed');
     }
 
     // Toggle menu on button click
     mobileMenuBtn.addEventListener('click', function(e) {
+      console.log('Menu button clicked!');
       e.preventDefault();
       e.stopPropagation();
       
@@ -119,8 +132,17 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       waitForHeaderAndInit();
+      // Also try direct initialization after a delay
+      setTimeout(initMobileMenu, 500);
     });
   } else {
     waitForHeaderAndInit();
+    // Also try direct initialization after a delay
+    setTimeout(initMobileMenu, 500);
   }
+  
+  // Additional failsafe - try initialization after full page load
+  window.addEventListener('load', function() {
+    setTimeout(initMobileMenu, 100);
+  });
 })();

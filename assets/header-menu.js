@@ -19,7 +19,7 @@
     function openMobileMenu() {
       clearTimeout(menuTransitionTimeout);
       document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
-      mobileMenu.classList.remove('hidden');
+      mobileMenu.style.display = 'block';
       
       // Force a reflow to ensure the transition works
       mobileMenu.offsetHeight;
@@ -34,10 +34,10 @@
       document.body.style.overflow = ''; // Restore scrolling
       mobileMenu.classList.remove('open');
       
-      // Add hidden class after transition completes
+      // Add display none after transition completes
       menuTransitionTimeout = setTimeout(() => {
         if (!mobileMenu.classList.contains('open')) {
-          mobileMenu.classList.add('hidden');
+          mobileMenu.style.display = 'none';
         }
       }, 400); // Match this to the CSS transition duration
       
@@ -104,7 +104,7 @@
       
       setTimeout(() => {
         if (!mobileMenu.classList.contains('open')) {
-          mobileMenu.classList.add('hidden');
+          mobileMenu.style.display = 'none';
         }
       }, 400);
       

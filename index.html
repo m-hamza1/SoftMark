@@ -64,14 +64,14 @@
             </span>
           </div>
 
-          <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight">
+          <h1 class="hero-title text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight">
             Transform Your Business<br> <span class="gradient-text"> with AI Automation </span>
           </h1>
-          <p class="max-w-2xl sm:text-lg text-base text-zinc-300 mt-0">
+          <p class="hero-subtitle max-w-2xl sm:text-lg text-base text-zinc-300 mt-0">
             Streamline operations, boost productivity, and drive growth with intelligent automation solutions tailored for modern businesses.
           </p>
 
-          <div class="flex gap-3 mt-8 mb-0 pb-[60px] items-center">
+          <div class="hero-buttons flex gap-3 mt-8 mb-0 pb-[60px] items-center">
             <a href="pricing.html" class="inline-flex items-center gap-2 shadow-violet-900/25 text-sm font-semibold text-white bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full pt-2.5 pr-5 pb-2.5 pl-5 shadow-lg transform-gpu transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-6px_rgba(139,92,246,0.4)] hover:scale-[1.02] active:scale-[0.98] active:duration-75" style="transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s cubic-bezier(0.4, 0, 0.2, 1);">Create your workspace<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
             <a href="#" class="inline-flex items-center gap-2 hover:bg-white/5 text-sm font-medium text-zinc-200 border-white/10 border rounded-full pt-2.5 pr-5 pb-2.5 pl-5 backdrop-blur-lg">
               Compare plans
@@ -118,10 +118,40 @@
     </div>
   </nav>
 
+  <!-- Mobile Navigation Bar -->
+  <nav class="flex sm:hidden overflow-x-auto pb-2 mb-4 scrollbar-hide" aria-label="Mobile app navigation">
+    <div class="flex gap-2 px-4 min-w-max">
+      <button type="button" class="h-12 w-12 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 ring-1 ring-white/20 shadow-lg shadow-violet-900/25 flex items-center justify-center flex-shrink-0" title="Home" aria-label="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="asterisk" class="lucide lucide-asterisk w-5 h-5 text-white"></svg>
+      </button>
+      <button type="button" class="h-12 w-12 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center flex-shrink-0" title="Search" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search w-5 h-5"></svg>
+      </button>
+      <button type="button" class="h-12 w-12 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 ring-1 ring-white/20 shadow-lg shadow-violet-900/20 text-white flex items-center justify-center flex-shrink-0" title="Calendar" aria-label="Calendar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" class="lucide lucide-calendar w-5 h-5"></svg>
+      </button>
+      <button type="button" class="h-12 w-12 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center flex-shrink-0" title="Tasks" aria-label="Tasks">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="list-checks" class="lucide lucide-list-checks h-5 w-5"></svg>
+      </button>
+      <button type="button" class="h-12 w-12 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center flex-shrink-0" title="Messages" aria-label="Messages">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="message-square" class="lucide lucide-message-square h-5 w-5"></svg>
+      </button>
+      <button type="button" class="h-12 w-12 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center flex-shrink-0" title="Files" aria-label="Files">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="folder" class="lucide lucide-folder h-5 w-5"></svg>
+      </button>
+      <button type="button" class="h-12 w-12 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center flex-shrink-0" title="Settings" aria-label="Settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="settings-2" class="lucide lucide-settings-2 h-5 w-5"></svg>
+      </button>
+      <button type="button" class="h-12 w-12 rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 text-slate-300 flex items-center justify-center flex-shrink-0" title="Help" aria-label="Help">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle h-5 w-5"></svg>
+      </button>
+    </div>
+  </nav>
+
   <div class="grid grid-cols-1 lg:grid-cols-2 sm:pl-16">
     <!-- Left: Timeline -->
 
-    <div class="p-4 pt-2 sm:p-8 lg:p-10 -mt-[75px] md:mt-0">  
+    <div class="p-4 pt-2 sm:p-8 lg:p-10 mt-0 md:mt-0">  
       
       <div class="space-y-6">
         <div class="flex items-center justify-between">

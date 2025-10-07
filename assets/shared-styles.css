@@ -247,15 +247,17 @@ body {
 
 /* Mobile Specific Styles - Hero Section & Badge Spacing */
 @media (max-width: 640px) {
-  /* Add spacing to hero sections on all pages */
+  /* Add spacing to hero sections on all pages - moved up */
   section:first-of-type {
-    padding-top: 4rem !important;
-    margin-top: 0 !important;
+    padding-top: 3rem !important;
+    margin-top: -1rem !important;
+    padding-bottom: 3rem !important;
   }
   
-  /* Reduce top margin for announcement badge */
+  /* Move announcement badge up */
   span.inline-flex.items-center.gap-2.rounded-full.border {
-    margin-top: 0 !important;
+    margin-top: -0.5rem !important;
+    margin-bottom: 1rem !important;
   }
   
   /* Reduce spacing between sections */
@@ -269,9 +271,32 @@ body {
     height: auto;
   }
   
-  /* Adjust content spacing */
-  .space-y-6 {
-    margin-top: 1rem !important;
+  /* Move announcement badge container up on mobile */
+  .mb-6 {
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Hero container improvements */
+  .flex.flex-col.text-left.mr-auto.mb-30.ml-auto.space-y-6.items-start {
+    padding: 0 1.5rem !important;
+    margin-bottom: 2rem !important;
+    align-items: flex-start !important;
+  }
+  
+  /* Announcement badge mobile spacing */
+  span.inline-flex.items-center.gap-2.rounded-full.border {
+    margin-bottom: 1.5rem !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  /* Gradient text mobile optimization */
+  .gradient-text {
+    background-image: linear-gradient(90deg, #8a5cf6 0%, #6366f1 100%) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    color: transparent !important;
+    display: inline-block !important;
   }
 }
 
@@ -290,30 +315,32 @@ body {
 
   /* Hero section mobile optimization */
   section:first-of-type {
-    padding-top: 5rem !important;
-    padding-bottom: 2rem !important;
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
   }
 
   /* Hero text sizing */
   .hero-title {
-    font-size: 2.5rem !important;
-    line-height: 1.1 !important;
-    /* Keep left alignment but nudge right slightly on small screens */
+    font-size: 2.25rem !important;
+    line-height: 1.2 !important;
     text-align: left !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-    margin-right: 0.5rem !important;
-    max-width: 95% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+    letter-spacing: -0.02em !important;
   }
 
   /* Hero subtitle */
   .hero-subtitle {
-    font-size: 1rem !important;
+    font-size: 1.1rem !important;
     line-height: 1.6 !important;
-    max-width: 95% !important;
+    max-width: 100% !important;
     text-align: left !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-top: 1rem !important;
+    color: #d1d5db !important;
   }
 
   /* Button improvements for mobile */
@@ -321,13 +348,28 @@ body {
     flex-direction: column !important;
     gap: 1rem !important;
     width: 100% !important;
+    margin-top: 2rem !important;
+    padding-bottom: 2rem !important;
   }
 
   .hero-buttons a {
     width: 100% !important;
     justify-content: center !important;
-    padding: 0.75rem 1.5rem !important;
-    font-size: 0.9rem !important;
+    padding: 1rem 2rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .hero-buttons a:first-child {
+    background: linear-gradient(135deg, #8b5cf6, #4f46e5) !important;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4) !important;
+  }
+
+  .hero-buttons a:first-child:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6) !important;
   }
 
   /* App preview mobile layout */
@@ -347,6 +389,90 @@ body {
     padding: 1rem !important;
   }
 
+  /* Mobile navigation bar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* App preview section mobile responsiveness */
+  section[style*="mask-image"] {
+    margin: 0 1rem !important;
+    border-radius: 1rem !important;
+  }
+
+  /* Timeline header mobile */
+  #current-date-display {
+    font-size: 1.125rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Connected accounts mobile */
+  .flex.gap-3.ring-1.ring-white\/10.bg-white\/5 {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    padding: 0.75rem !important;
+  }
+
+  /* Notes section mobile */
+  .space-y-2 > .flex.items-center.justify-between {
+    padding: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Calendar section mobile */
+  .ring-1.ring-white\/10.bg-white\/5.rounded-xl.p-2 {
+    padding: 0.75rem !important;
+  }
+
+  .grid.grid-cols-7.gap-1.text-sm {
+    gap: 0.25rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  .grid.grid-cols-7.gap-1.text-sm > div {
+    height: 2rem !important;
+    min-width: 2rem !important;
+  }
+
+  /* Meetings section mobile */
+  .ring-1.ring-white\/10.bg-white\/5.rounded-xl.p-2.sm\:p-4.blur-none {
+    padding: 0.75rem !important;
+  }
+
+  .space-y-3 > .flex.items-center.gap-3 {
+    padding: 0.5rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  .space-y-3 > .flex.items-center.gap-3 > .min-w-0 {
+    width: 100% !important;
+  }
+
+  .space-y-3 > .flex.items-center.gap-3 > .ml-auto {
+    align-self: flex-end !important;
+    margin-left: 0 !important;
+  }
+
+  /* Calendar navigation mobile */
+  .flex.items-center.justify-between.mb-3 > .flex.items-center.gap-2 {
+    gap: 0.5rem !important;
+  }
+
+  .flex.items-center.justify-between.mb-3 > .flex.items-center.gap-2 button {
+    padding: 0.5rem !important;
+  }
+
+  /* Month label mobile */
+  #month-label {
+    font-size: 1rem !important;
+  }
+
   .timeline-header {
     flex-direction: column !important;
     align-items: flex-start !important;
@@ -360,7 +486,7 @@ body {
     border-radius: 12px !important;
     overflow: hidden !important;
   }
-
+}
 
 /* Tablet layout for app preview: 2 columns */
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -371,6 +497,27 @@ body {
 
   .app-preview-card {
     min-height: 180px !important;
+  }
+
+  /* App preview section tablet adjustments */
+  section[style*="mask-image"] {
+    margin: 0 2rem !important;
+  }
+
+  /* Calendar tablet */
+  .grid.grid-cols-7.gap-1.text-sm > div {
+    height: 2.5rem !important;
+    min-width: 2.5rem !important;
+  }
+
+  /* Meetings tablet */
+  .space-y-3 > .flex.items-center.gap-3 {
+    flex-direction: row !important;
+    padding: 0.75rem !important;
+  }
+
+  .space-y-3 > .flex.items-center.gap-3 > .min-w-0 {
+    width: auto !important;
   }
 }
 
@@ -511,10 +658,25 @@ body {
   /* Hero section tablet */
   .hero-title {
     font-size: 3.5rem !important;
+    line-height: 1.1 !important;
   }
 
   .hero-subtitle {
-    font-size: 1.1rem !important;
+    font-size: 1.25rem !important;
+    max-width: 90% !important;
+  }
+
+  /* Hero buttons for tablet */
+  .hero-buttons {
+    flex-direction: row !important;
+    gap: 1rem !important;
+    justify-content: flex-start !important;
+  }
+
+  .hero-buttons a {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 160px !important;
   }
 
   /* App preview tablet layout */
@@ -531,6 +693,42 @@ body {
   section {
     padding-left: 2rem !important;
     padding-right: 2rem !important;
+  }
+
+  /* App preview section tablet improvements */
+  .app-preview-section {
+    padding: 2rem 0 !important;
+  }
+
+  /* Calendar tablet improvements */
+  .calendar-grid {
+    gap: 0.25rem !important;
+  }
+
+  .calendar-day {
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* Meetings section tablet */
+  .meetings-list {
+    max-height: 300px !important;
+  }
+
+  .meeting-item {
+    padding: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Timeline tablet improvements */
+  .timeline-container {
+    padding: 1rem !important;
+  }
+
+  .timeline-item {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
   }
 }
 

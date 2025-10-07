@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initCountrySelect();
     initScrollToTop();
+    initCalendarDate();
 });
 
 // Initialize all modal dialogs
@@ -362,3 +363,22 @@ window.closeVideoModal = function() {
         document.body.style.overflow = '';
     }
 };
+
+// Initialize calendar date display
+function initCalendarDate() {
+    const dateDisplay = document.getElementById('calendar-date-display');
+    const monthDisplay = document.getElementById('calendar-month-display');
+    const dayDisplay = document.getElementById('calendar-day-display');
+
+    if (dateDisplay && monthDisplay && dayDisplay) {
+        const now = new Date();
+        const day = now.getDate();
+        const month = now.toLocaleString('default', { month: 'long' });
+        const year = now.getFullYear();
+        const dayName = now.toLocaleString('default', { weekday: 'long' });
+
+        dateDisplay.textContent = day;
+        monthDisplay.textContent = `${month} ${year}`;
+        dayDisplay.textContent = dayName;
+    }
+}

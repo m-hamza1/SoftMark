@@ -651,6 +651,98 @@ body {
   .desktop-only {
     display: none !important;
   }
+
+  /* Notes section mobile responsiveness */
+  .notes-section {
+    padding: 1rem !important;
+  }
+
+  .notes-section h3 {
+    font-size: 1.125rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .note-item {
+    padding: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  .note-item .flex.items-center.gap-3 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  .note-item .flex.items-center.gap-3 > div:first-child {
+    width: 100% !important;
+  }
+
+  .note-item .flex.items-center.gap-3 > span {
+    align-self: flex-end !important;
+    margin-top: 0.25rem !important;
+  }
+
+  /* Connected accounts mobile responsiveness */
+  .connected-accounts-section {
+    padding: 1rem !important;
+  }
+
+  .connected-account-card {
+    padding: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .connected-account-card .flex.gap-3 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  .connected-account-card .flex.gap-3 > div:first-child {
+    width: 100% !important;
+  }
+
+  /* Meetings section mobile responsiveness */
+  .meetings-section {
+    padding: 1rem !important;
+  }
+
+  .meetings-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  .meetings-header h4 {
+    font-size: 1.125rem !important;
+  }
+
+  .timezone-display {
+    font-size: 0.75rem !important;
+  }
+
+  .meeting-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    padding: 0.75rem !important;
+  }
+
+  .meeting-details {
+    width: 100% !important;
+  }
+
+  .meeting-details p {
+    margin-bottom: 0.25rem !important;
+  }
+
+  .meeting-time {
+    align-self: flex-end !important;
+    margin-top: 0.5rem !important;
+  }
 }
 
 /* Tablet improvements (641px - 1024px) */

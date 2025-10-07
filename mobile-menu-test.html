@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/shared-styles.css">
+  <link rel="stylesheet" href="assets/mobile-menu-fresh.css">
+  <title>Simple Mobile Menu Test</title>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6C5CE7',
+            secondary: '#A78BFA'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">Simple Mobile Menu Test</h1>
+    <p class="mb-4">Resize your browser to mobile width (≤767px) and click the hamburger menu button in the top-right corner.</p>
+    <p class="mb-8">The menu features clean, simple animations and a professional look.</p>
+
+    <!-- Header placeholder for component loader -->
+    <div id="header-placeholder"></div>
+
+    <div class="mt-8 p-6 bg-slate-800 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4">✅ Clean Features:</h2>
+      <ul class="space-y-2">
+        <li>✅ <strong>Fast slide-in:</strong> 0.25s smooth animation</li>
+        <li>✅ <strong>Clean design:</strong> Simple gradients and blur effects</li>
+        <li>✅ <strong>Navigation only:</strong> Just the menu links</li>
+        <li>✅ <strong>No company name:</strong> Clean header with close button</li>
+        <li>✅ <strong>No CTA button:</strong> Focused on navigation</li>
+        <li>✅ <strong>Reliable functionality:</strong> Works on all mobile devices</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Load components -->
+  <script src="assets/components-loader.js"></script>
+  <script src="assets/mobile-menu-fresh.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@ const AI_CONFIG = {
   groqApiKey: "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",
   model: 'llama-3.1-8b-instant',
   useGroqAPI: true,
-  maxTokens: 30,
+  maxTokens: 150,
   temperature: 0.7
 };
 
@@ -38,7 +38,7 @@ const conversationState = {
   selectedService: null
 };
 
-// Open AI Chat with Sound Effect
+// Open AI Chat with Sound Effect and Animation
 function openAIChat() {
   // Play stunning sound effect
   const openSound = document.getElementById('chat-open-sound');
@@ -47,26 +47,94 @@ function openAIChat() {
     openSound.play().catch(e => console.log('Sound play failed:', e));
   }
   
-  // Show chat with animation
+  // Show chat with smooth animation
   const chatContainer = document.getElementById('ai-chat-container');
-  chatContainer.style.display = 'block';
+  chatContainer.style.display = 'flex';
+  chatContainer.classList.remove('hidden');
+  chatContainer.classList.add('open');
+  
+  // Add entrance animation
+  setTimeout(() => {
+    chatContainer.style.opacity = '1';
+    chatContainer.style.transform = 'translateY(0) scale(1)';
+  }, 10);
+  
+  // Focus on input field
+  setTimeout(() => {
+    const inputField = document.getElementById('ai-input');
+    if (inputField) {
+      inputField.focus();
+    }
+  }, 400);
   
   if (conversationState.chatHistory.length === 0) {
     initializeAIChat();
   }
 }
 
-// Close AI Chat
+// Close AI Chat with Animation
 function closeAIChat() {
-  document.getElementById('ai-chat-container').style.display = 'none';
+  const chatContainer = document.getElementById('ai-chat-container');
+  
+  if (!chatContainer.classList.contains('open')) {
+    return; // Already closed or closing
+  }
+  
+  // Add exit animation
+  chatContainer.style.opacity = '0';
+  chatContainer.style.transform = 'translateY(20px) scale(0.95)';
+  
+  // Hide after animation completes
+  setTimeout(() => {
+    chatContainer.style.display = 'none';
+    chatContainer.classList.remove('open');
+    chatContainer.classList.add('hidden');
+  }, 300);
+  
+  // Play close sound effect
+  const closeSound = document.getElementById('chat-close-sound');
+  if (closeSound) {
+    closeSound.currentTime = 0;
+    closeSound.play().catch(e => console.log('Sound play failed:', e));
+  }
 }
+
+// Close chat when clicking outside
+document.addEventListener('click', function(event) {
+  const chatContainer = document.getElementById('ai-chat-container');
+  const chatButton = document.getElementById('chat-button');
+  
+  // Check if chat is open and click is outside chat container and button
+  if (chatContainer && chatContainer.classList.contains('open')) {
+    if (!chatContainer.contains(event.target) && !chatButton.contains(event.target)) {
+      closeAIChat();
+    }
+  }
+});
+
+// Escape key to close chat
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    const chatContainer = document.getElementById('ai-chat-container');
+    if (chatContainer && chatContainer.classList.contains('open')) {
+      closeAIChat();
+    }
+  }
+});
 
 // Initialize AI Chat
 function initializeAIChat() {
   const greeting = AI_RESPONSES.greetings[Math.floor(Math.random() * AI_RESPONSES.greetings.length)];
   addAIMessage(greeting);
   setTimeout(() => {
-    showQuickActions(['Our Services', 'Pricing', 'Free Demo', 'About AI']);
+    showQuickActions([
+      'How much can AI automation save me?',
+      'What types of tasks can you automate?',
+      'How quickly can you implement this?',
+      'Do you work with my industry?',
+      'Can I see examples of your work?',
+      'What\'s the ROI of AI automation?'
+    ]);
   }, 2000);
 }
 
@@ -84,7 +152,7 @@ function addAIMessage(message, delay = 1000) {
     messageDiv.innerHTML = message;
     messagesContainer.appendChild(messageDiv);
     
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    scrollToBottom(); // Use enhanced scroll function
     
     conversationState.chatHistory.push({
       sender: 'ai',
@@ -92,6 +160,16 @@ function addAIMessage(message, delay = 1000) {
       timestamp: new Date()
     });
   }, delay);
+}
+
+// Enhanced scroll to bottom function
+function scrollToBottom() {
+  const messagesContainer = document.getElementById('ai-messages');
+  if (messagesContainer) {
+    setTimeout(() => {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 100); // Small delay to ensure content is rendered
+  }
 }
 
 // Add User Message
@@ -103,7 +181,7 @@ function addUserMessage(message) {
   messageDiv.textContent = message;
   messagesContainer.appendChild(messageDiv);
   
-  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  scrollToBottom(); // Use enhanced scroll function
   
   conversationState.chatHistory.push({
     sender: 'user',
@@ -127,7 +205,7 @@ function showTypingIndicator() {
     <span style="margin-left: 8px; font-size: 12px; color: #666;">Sarah is typing...</span>
   `;
   messagesContainer.appendChild(typingDiv);
-  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  scrollToBottom(); // Use enhanced scroll function
 }
 
 function hideTypingIndicator() {
@@ -213,34 +291,35 @@ async function processAIResponse(userMessage) {
 // Groq API Integration
 async function handleGroqResponse(userMessage) {
   try {
-    const businessContext = `You are Sarah, an AI assistant for SoftMark - a company that provides AI automation solutions, chatbots, and business process automation. 
+    const businessContext = `You are Sarah, an AI assistant for SoftMark - a company that provides AI automation solutions, chatbots, and business process automation.
 
-    STRICT RULES:
-    - Answer general questions about business, technology, AI concepts
-    - DO NOT provide step-by-step solutions or "how to" instructions
-    - If user asks "how to do something" or "what's the solution", say: "That's exactly what SoftMark specializes in! Let me connect you with our experts who can provide the perfect solution."
-    - ONLY discuss SoftMark's services for solution-based queries
-    - Collect user's business problems and contact information
-    - Be direct and professional
-    - Keep responses VERY SHORT (maximum 1-2 sentences)
-    
-    Examples:
-    - "What is AI?" ✅ Answer normally
-    - "How to implement AI?" ❌ Redirect to SoftMark
-    - "What are chatbots?" ✅ Answer normally  
-    - "How to build chatbots?" ❌ Redirect to SoftMark
-    
+    GUIDELINES:
+    - Answer general questions about business, technology, AI concepts helpfully
+    - Provide brief, practical information for "how to" questions when they're general
+    - For complex implementation questions, mention that SoftMark can provide custom solutions
+    - Always be professional, helpful, and concise
+    - Keep responses clear and actionable (2-3 sentences max)
+    - Promote SoftMark services naturally when relevant
+    - Focus on business automation, AI chatbots, and productivity solutions
+
+    Common Questions & Answers:
+    - "How much can AI save me?": "Businesses typically save 40-80% on operational costs and 60%+ time with AI automation."
+    - "What tasks can you automate?": "We automate repetitive tasks like data entry, customer support, invoicing, scheduling, and reporting."
+    - "How quickly can you implement?": "Most solutions are live within 2-4 weeks, depending on complexity."
+    - "What's the ROI?": "Clients typically see 200-500% ROI within the first year through cost savings and efficiency gains."
+    - "Do you work with my industry?": "We serve healthcare, retail, finance, manufacturing, and most business sectors."
+
     SoftMark Services:
-    - AI Chatbots (24/7 customer support)
-    - Business Process Automation  
-    - Custom AI Solutions
-    - Analytics & Insights
-    
-    For solution/implementation questions: "That's exactly what SoftMark does! What's your email?"
-    
+    - AI Chatbots (24/7 customer support, handle 80% of queries)
+    - Business Process Automation (save 60%+ time and costs)
+    - Custom AI Solutions (boost productivity by 3x)
+    - Analytics & Insights (data-driven decisions)
+
+    For complex solutions: "SoftMark specializes in that! What's your email for a consultation?"
+
     User message: ${userMessage}
-    
-    Respond briefly:`;
+
+    Respond helpfully:`;
 
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
@@ -260,7 +339,7 @@ async function handleGroqResponse(userMessage) {
             content: userMessage
           }
         ],
-        max_tokens: 30,
+        max_tokens: 150,
         temperature: 0.7
       })
     });
@@ -273,14 +352,14 @@ async function handleGroqResponse(userMessage) {
     // Check if we should collect contact info
     if (aiResponse.toLowerCase().includes('contact') || aiResponse.toLowerCase().includes('email')) {
       setTimeout(() => {
-        showQuickActions(['Share Contact', 'Schedule Call', 'Tell me more', 'Get Demo']);
+        showQuickActions(['Share Email', 'Schedule Call', 'Get Demo', 'Pricing Info']);
       }, 2000);
     }
     
   } catch (error) {
     console.error('Groq API Error:', error);
-    // Fallback to regular responses
-    handleGeneralQuery(userMessage);
+    // Fallback to regular responses with helpful answers
+    handleFallbackResponse(userMessage);
   }
 }
 
@@ -289,23 +368,26 @@ function handleServiceInquiry() {
   const response = `Great! SoftMark offers AI automation solutions that save 60%+ time and costs.
 
 Which service interests you?`;
-  
+
   addAIMessage(response);
   setTimeout(() => {
-    showQuickActions(['AI Chatbots', 'Automation', 'Custom AI', 'Analytics']);
+    showQuickActions([
+      'AI Chatbots for customer support',
+      'Business process automation',
+      'Custom AI solutions',
+      'Analytics & reporting'
+    ]);
   }, 1500);
-}
-
-// Handle Pricing Inquiry
+}// Handle Pricing Inquiry
 function handlePricingInquiry() {
   const response = `Our pricing is flexible and tailored to your needs:
 
 💼 Starter: $299/mo - Perfect for small businesses
-🚀 Professional: $599/mo - Best for growing companies  
+🚀 Professional: $599/mo - Best for growing companies
 ⭐ Enterprise: Custom - For large organizations
 
 What's your email? I'll send you detailed pricing.`;
-  
+
   addAIMessage(response);
   conversationState.stage = 'collecting_contact_for_pricing';
 }
@@ -355,38 +437,84 @@ What's your email?`;
   conversationState.stage = 'collecting_contact';
 }
 
-// Handle General Query
+// Handle Fallback Response when API fails
+function handleFallbackResponse(message) {
+  const lowerMessage = message.toLowerCase();
+
+  // Common questions and helpful responses
+  if (lowerMessage.includes('how much can ai save') || lowerMessage.includes('cost savings')) {
+    addAIMessage('AI automation typically saves businesses 40-80% on operational costs and 60%+ time on repetitive tasks. Most clients see their ROI within 6-12 months.');
+  } else if (lowerMessage.includes('what tasks can you automate') || lowerMessage.includes('what can you automate')) {
+    addAIMessage('We can automate data entry, customer support, invoicing, scheduling, reporting, email responses, and many other repetitive business tasks.');
+  } else if (lowerMessage.includes('how quickly') || lowerMessage.includes('implementation time')) {
+    addAIMessage('Most AI automation solutions are implemented within 2-4 weeks. Simple chatbots can be live in days, while complex integrations take a few weeks.');
+  } else if (lowerMessage.includes('roi') || lowerMessage.includes('return on investment')) {
+    addAIMessage('Clients typically achieve 200-500% ROI within the first year through reduced costs, increased efficiency, and 24/7 operation capabilities.');
+  } else if (lowerMessage.includes('industries') || lowerMessage.includes('what industries')) {
+    addAIMessage('We serve healthcare, retail, finance, manufacturing, professional services, e-commerce, and most other business sectors.');
+  } else if (lowerMessage.includes('demo') || lowerMessage.includes('show me')) {
+    handleDemoRequest();
+  } else if (lowerMessage.includes('pricing') || lowerMessage.includes('cost') || lowerMessage.includes('price')) {
+    handlePricingInquiry();
+  } else {
+    // General fallback
+    const fallbacks = [
+      'That\'s a great question! AI automation can transform how businesses operate. What specific challenge are you facing?',
+      'I\'d love to help with that. SoftMark specializes in AI solutions that save time and money. What\'s your biggest operational pain point?',
+      'Excellent question! Our AI automation handles everything from customer support to data processing. What would you like to automate first?'
+    ];
+    addAIMessage(fallbacks[Math.floor(Math.random() * fallbacks.length)]);
+  }
+}
 function handleGeneralQuery(message) {
-  // Check if asking for solutions or "how to" questions  
-  if (message.includes('how to') || message.includes('how can') || message.includes('solution') || 
+  // Check if asking for solutions or "how to" questions
+  if (message.includes('how to') || message.includes('how can') || message.includes('solution') ||
       message.includes('implement') || message.includes('build') || message.includes('create') ||
       message.includes('develop') || message.includes('make') || message.includes('setup') ||
       message.includes('integrate') || message.includes('install')) {
-    
-    addAIMessage(`That's exactly what SoftMark does! What's your email?`);
-    conversationState.stage = 'collecting_contact_for_service';
+
+    // For complex technical questions, offer SoftMark's help
+    if (message.includes('complex') || message.includes('enterprise') || message.includes('large scale') ||
+        message.includes('integrate') || message.includes('custom')) {
+      addAIMessage(`That sounds like a perfect fit for SoftMark's custom solutions! What's your email for a consultation?`);
+      conversationState.stage = 'collecting_contact_for_service';
+      return;
+    }
+
+    // For general "how to" questions, let Groq API handle them
     return;
   }
-  
-  // Check if it's general business question
-  if (message.includes('business') || message.includes('company') || message.includes('work') || 
+
+  // Check if it's general business/AI question - let Groq handle it
+  if (message.includes('business') || message.includes('company') || message.includes('work') ||
       message.includes('ai') || message.includes('automation') || message.includes('chatbot') ||
-      message.includes('technology') || message.includes('digital') || message.includes('software')) {
-    
-    // Let Groq API handle general business questions normally  
+      message.includes('technology') || message.includes('digital') || message.includes('software') ||
+      message.includes('cost') || message.includes('price') || message.includes('pricing') ||
+      message.includes('demo') || message.includes('trial') || message.includes('free') ||
+      message.includes('service') || message.includes('what do you do') ||
+      message.includes('how much') || message.includes('time') || message.includes('save') ||
+      message.includes('industry') || message.includes('serve')) {
+
+    // Let Groq API handle general business questions normally
     return;
   } else {
-    // For non-business queries, redirect to business focus
+    // For completely off-topic queries, gently redirect
     const businessRedirects = [
-      `If you're interested in our services, let's focus on business matters. What challenges does your company face?`,
-      `I'm here for business automation solutions only. What operational problems can SoftMark help you solve?`,
-      `Let's talk business! What specific processes in your company need automation?`
+      `I'm here to help with business automation and AI solutions. What challenges does your company face?`,
+      `Let's focus on how SoftMark can help automate your business processes. What specific tasks take up too much time?`,
+      `I specialize in AI automation for businesses. What repetitive processes would you like to automate?`
     ];
-    
+
     const response = businessRedirects[Math.floor(Math.random() * businessRedirects.length)];
     addAIMessage(response);
     setTimeout(() => {
-      showQuickActions(['AI Chatbots', 'Process Automation', 'Analytics', 'Learn More']);
+      showQuickActions([
+        'How does AI automation work?',
+        'What are your pricing plans?',
+        'Can you show me a demo?',
+        'How much time can I save?',
+        'What industries do you serve?'
+      ]);
     }, 1500);
   }
 }
@@ -454,7 +582,7 @@ Is there anything specific you'd like me to tell our team about your automation 
   
   addAIMessage(response);
   setTimeout(() => {
-    showQuickActions(['Chatbot Demo', 'Automation Demo', 'Pricing Info', "I'm all set!"]);
+    showQuickActions(['Schedule a Call', 'Get Pricing Info', 'View Demo', 'Learn More']);
   }, 3000);
 }
 

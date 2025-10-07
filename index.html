@@ -82,9 +82,9 @@
         <!-- App Preview -->
         <div class="relative sm:-mt-4 -mt-2">
           <!-- Glow -->
-          <div class="absolute inset-0 -top-8 mx-auto h-56 max-w-5xl rounded-[28px] bg-gradient-to-r from-violet-500/30 via-fuchsia-500/20 to-indigo-500/30 blur-2xl"></div>
+          <div class="absolute inset-0 -top-8 mx-auto h-32 sm:h-56 max-w-5xl rounded-[28px] bg-gradient-to-r from-violet-500/30 via-fuchsia-500/20 to-indigo-500/30 blur-2xl"></div>
 
-          <section class="relative ring-1 ring-white/10 supports-[backdrop-filter]:bg-white/5 overflow-hidden text-white bg-white/5 border-slate-50/10 border rounded-2xl backdrop-blur-xl" style="mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 20%, transparent 100%);">
+          <section class="relative ring-1 ring-white/10 supports-[backdrop-filter]:bg-white/5 overflow-hidden text-white bg-white/5 border-slate-50/10 border rounded-2xl backdrop-blur-xl" style="mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 30%, transparent 100%);">
   <!-- Sidebar (icons only) -->
   <nav class="hidden sm:flex flex-col absolute inset-y-0 left-0 w-14 ring-1 ring-white/10 z-10 border-slate-50/0 border-r pt-4 pr-2 pb-4 pl-2 backdrop-blur items-center justify-between" aria-label="Primary">
     <div class="flex flex-col gap-3 items-center">
@@ -120,10 +120,12 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-2 sm:pl-16">
     <!-- Left: Timeline -->
-    <div class="sm:p-8 lg:p-10 pt-5 pr-5 pb-5 pl-5">
+
+    <div class="p-4 pt-2 sm:p-8 lg:p-10 -mt-[75px] md:mt-0"> 
+      
       <div class="space-y-6">
         <div class="flex items-center justify-between">
-          <h2 id="current-date-display" class="sm:text-2xl text-xl font-semibold text-white tracking-tight">
+          <h2 id="current-date-display" class="text-lg sm:text-xl lg:text-2xl font-semibold text-white tracking-tight">
             <script>
               document.addEventListener('DOMContentLoaded', function() {
                 const now = new Date();
@@ -170,7 +172,7 @@
           <!-- Connected accounts -->
           <div class="relative space-y-2">
             <div class="flex flex-col sm:flex-row gap-3">
-              <div class="flex gap-3 ring-1 ring-white/10 bg-white/5 rounded-xl pt-3 pr-4 pb-3 pl-4 shadow-sm backdrop-blur items-center">
+              <div class="flex gap-3 ring-1 ring-white/10 bg-white/5 rounded-xl p-3 sm:p-4 shadow-sm backdrop-blur items-center">
                 <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center ring-1 ring-white/20">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" class="lucide lucide-calendar h-4 w-4 text-white"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
                 </div>
@@ -180,7 +182,7 @@
                 
               </div>
 
-              <div class="flex gap-3 ring-1 ring-white/10 bg-white/5 rounded-xl pt-3 pr-4 pb-3 pl-4 shadow-sm backdrop-blur items-center">
+              <div class="flex gap-3 ring-1 ring-white/10 bg-white/5 rounded-xl p-3 sm:p-4 shadow-sm backdrop-blur items-center">
                 <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-fuchsia-500 to-violet-600 flex items-center justify-center ring-1 ring-white/20">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="mail" class="lucide lucide-mail h-4 w-4 text-white"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
                 </div>
@@ -217,22 +219,22 @@
       </div>
 
       <!-- Right: Calendar + Meetings -->
-      <div class="lg:border-t-0 lg:border-l border-white/10 border-t pr-4 pl-4">
-  <div class="sm:p-8 lg:p-10 pt-5 pr-5 pb-5 pl-5 space-y-6">
+      <div class="lg:border-t-0 lg:border-l border-white/10 border-t p-4 pt-2 sm:p-8 lg:p-10">
+  <div class="space-y-6">
     <!-- Calendar header -->
     <div class="flex items-center justify-between">
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         <button class="p-2 rounded-lg bg-white/5 ring-1 ring-white/10 hover:bg-white/10" type="button" aria-label="Previous month" data-nav="prev"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-left" class="lucide lucide-chevron-left h-4 w-4 text-slate-200"><path d="m15 18-6-6 6-6"></path></svg></button>
         <button class="p-2 rounded-lg bg-white/5 ring-1 ring-white/10 hover:bg-white/10" type="button" aria-label="Next month" data-nav="next"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" class="lucide lucide-chevron-right w-[16px] h-[16px]" style="width: 16px; height: 16px; color: rgb(226, 232, 240);"><path d="m9 18 6-6-6-6"></path></svg></button>
       </div>
-      <h3 class="text-xl tracking-tight font-semibold text-white" id="month-label">October 2025</h3>
+      <h3 class="text-lg sm:text-xl tracking-tight font-semibold text-white" id="month-label">October 2025</h3>
       <button class="p-2 rounded-lg bg-white/5 ring-1 ring-white/10 hover:bg-white/10" type="button" id="add-event-btn" aria-label="Add event">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar-plus" class="lucide lucide-calendar-plus h-4 w-4 text-slate-200"><path d="M16 19h6"></path><path d="M16 2v4"></path><path d="M19 16v6"></path><path d="M21 12.598V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8.5"></path><path d="M3 10h18"></path><path d="M8 2v4"></path></svg>
       </button>
     </div>
 
     <!-- Calendar grid -->
-    <div class="ring-1 ring-white/10 bg-white/5 rounded-xl pt-4 pr-4 pb-4 pl-4">
+    <div class="ring-1 ring-white/10 bg-white/5 rounded-xl p-2 sm:p-4">
       <div class="grid grid-cols-7 text-center text-xs text-slate-400 mb-2">
         <div class="">Su</div><div class="">Mo</div><div class="">Tu</div><div>We</div><div class="">Th</div><div class="">Fr</div><div class="">Sa</div>
       </div>
@@ -241,7 +243,7 @@
     </div>
 
     <!-- Meetings -->
-    <div class="ring-1 ring-white/10 bg-white/5 rounded-xl pt-4 pr-4 pb-4 pl-4 blur-none grayscale-0">
+    <div class="ring-1 ring-white/10 bg-white/5 rounded-xl p-2 sm:p-4 blur-none grayscale-0">
       <div class="flex items-center justify-between mb-3">
         <h4 class="text-lg tracking-tight font-semibold text-white">Meetings</h4>
         <div class="flex items-center gap-2 text-xs text-slate-400">
@@ -250,7 +252,7 @@
         </div>
       </div>
 
-      <div class="space-y-3" id="meetings-list"><div class="flex items-center gap-3 px-3 py-3 rounded-lg bg-white/5 ring-1 ring-white/10">
+      <div class="space-y-3" id="meetings-list"><div class="flex items-center gap-3 px-2 py-2 sm:px-3 sm:py-3 rounded-lg bg-white/5 ring-1 ring-white/10">
             <div class="h-8 w-8 rounded-md bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center ring-1 ring-white/20">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users h-4 w-4 text-white"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
             </div>
@@ -262,7 +264,7 @@
               <span class="text-xs text-slate-300">9:30am</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="clock" class="lucide lucide-clock h-4 w-4 text-slate-400"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>
             </div>
-          </div><div class="flex items-center gap-3 px-3 py-3 rounded-lg bg-white/5 ring-1 ring-white/10">
+          </div><div class="flex items-center gap-3 px-2 py-2 sm:px-3 sm:py-3 rounded-lg bg-white/5 ring-1 ring-white/10">
             <div class="h-8 w-8 rounded-md bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center ring-1 ring-white/20">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="palette" class="lucide lucide-palette h-4 w-4 text-white"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></svg>
             </div>
@@ -274,7 +276,7 @@
               <span class="text-xs text-slate-300">11:00am</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="clock" class="lucide lucide-clock h-4 w-4 text-slate-400"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>
             </div>
-          </div><div class="flex items-center gap-3 px-3 py-3 rounded-lg bg-white/5 ring-1 ring-white/10 opacity-70">
+          </div><div class="flex items-center gap-3 px-2 py-2 sm:px-3 sm:py-3 rounded-lg bg-white/5 ring-1 ring-white/10 opacity-70">
             <div class="h-8 w-8 rounded-md bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center ring-1 ring-white/20">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="wrench" class="lucide lucide-wrench h-4 w-4 text-white"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"></path></svg>
             </div>
@@ -289,7 +291,7 @@
           </div></div>
 
       <div class="mt-4 flex items-center justify-between">
-        <button class="text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg bg-white/5 ring-1 ring-white/10 inline-flex items-center gap-2" type="button" id="share-day-btn">
+        <button class="text-xs text-slate-300 hover:text-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg bg-white/5 ring-1 ring-white/10 inline-flex items-center gap-2" type="button" id="share-day-btn">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="link" class="lucide lucide-link h-4 w-4"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
           Share day
         </button>

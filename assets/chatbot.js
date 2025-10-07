@@ -47,6 +47,12 @@ function openAIChat() {
     openSound.play().catch(e => console.log('Sound play failed:', e));
   }
   
+  // Hide chat button when opening chat
+  const chatButton = document.getElementById('chat-button');
+  if (chatButton) {
+    chatButton.style.display = 'none';
+  }
+  
   // Show chat with smooth animation
   const chatContainer = document.getElementById('ai-chat-container');
   chatContainer.style.display = 'flex';
@@ -89,6 +95,12 @@ function closeAIChat() {
     chatContainer.style.display = 'none';
     chatContainer.classList.remove('open');
     chatContainer.classList.add('hidden');
+    
+    // Show chat button again when chat is closed
+    const chatButton = document.getElementById('chat-button');
+    if (chatButton) {
+      chatButton.style.display = 'flex';
+    }
   }, 300);
   
   // Play close sound effect

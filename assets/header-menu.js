@@ -5,33 +5,24 @@
   function initMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuCloseBtn = document.getElementById('mobile-menu-close-btn');
     const menuOpenIcon = document.getElementById('menu-open-icon');
     const menuCloseIcon = document.getElementById('menu-close-icon');
 
     if (!mobileMenuBtn || !mobileMenu) {
-      console.log('Mobile menu elements not found yet, retrying...');
       setTimeout(initMobileMenu, 100);
       return;
     }
-
-    console.log('Mobile menu initialized successfully!');
 
     // Toggle menu on button click
     mobileMenuBtn.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
       
-      // Debug output to help identify issues
-      console.log('Button clicked!');
-      console.log('Mobile menu element:', mobileMenu);
-      console.log('Menu classes:', mobileMenu.className);
-      
       const isHidden = mobileMenu.classList.contains('hidden');
-      console.log('Menu is hidden:', isHidden);
       
       if (isHidden) {
         // Open menu with smooth animation
-        console.log('Opening menu...');
         mobileMenu.classList.remove('hidden');
         mobileMenu.style.removeProperty('display');
         // Force reflow
@@ -44,10 +35,8 @@
         });
         menuOpenIcon.classList.add('hidden');
         menuCloseIcon.classList.remove('hidden');
-        console.log('Menu should be visible now');
       } else {
         // Close menu with smooth animation
-        console.log('Closing menu...');
         mobileMenu.style.maxHeight = '0';
         mobileMenu.style.opacity = '0';
         mobileMenu.style.transform = 'translateY(-10px)';
@@ -57,9 +46,27 @@
         }, 300);
         menuOpenIcon.classList.remove('hidden');
         menuCloseIcon.classList.add('hidden');
-        console.log('Menu closed');
       }
     });
+
+    // Handle close button click
+    if (mobileMenuCloseBtn) {
+      mobileMenuCloseBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Close menu with smooth animation
+        mobileMenu.style.maxHeight = '0';
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.transform = 'translateY(-10px)';
+        setTimeout(() => {
+          mobileMenu.classList.add('hidden');
+          mobileMenu.style.display = 'none';
+        }, 300);
+        menuOpenIcon.classList.remove('hidden');
+        menuCloseIcon.classList.add('hidden');
+      });
+    }
 
     // Close menu when clicking on a link
     const mobileLinks = mobileMenu.querySelectorAll('a');
@@ -74,38 +81,16 @@
         }, 300);
         menuOpenIcon.classList.remove('hidden');
         menuCloseIcon.classList.add('hidden');
-        console.log('Menu closed via link click');
       });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-        if (!mobileMenu.classList.contains('hidden')) {
-          mobileMenu.style.maxHeight = '0';
-          mobileMenu.style.opacity = '0';
-          mobileMenu.style.transform = 'translateY(-10px)';
-          setTimeout(() => {
-            mobileMenu.classList.add('hidden');
-            mobileMenu.style.display = 'none';
-          }, 300);
-          menuOpenIcon.classList.remove('hidden');
-          menuCloseIcon.classList.add('hidden');
-          console.log('Menu closed via outside click');
-        }
-      }
     });
   }
 
   // Wait for header component to be loaded, then initialize
   function waitForHeaderAndInit() {
-    console.log('Waiting for header to load...');
     // Listen for header loaded event
     document.addEventListener('headerLoaded', function() {
-      console.log('Header loaded event received!');
       // Give DOM time to update
       setTimeout(() => {
-        console.log('Initializing mobile menu...');
         initMobileMenu();
       }, 100);
     });
@@ -113,20 +98,16 @@
     // Also check if header is already loaded
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder && headerPlaceholder.innerHTML.trim() !== '') {
-      console.log('Header already loaded, initializing immediately');
       initMobileMenu();
     }
   }
 
   // Initialize when DOM is ready
-  console.log('Script loaded, document.readyState:', document.readyState);
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOMContentLoaded fired');
       waitForHeaderAndInit();
     });
   } else {
-    console.log('Document already loaded, initializing...');
     waitForHeaderAndInit();
   }
 })();

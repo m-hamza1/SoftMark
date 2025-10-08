@@ -29,6 +29,7 @@
       mobileMenu.classList.add('active');
       menuOverlay.classList.add('active');
       document.body.classList.add('mobile-menu-open');
+      menuToggle.setAttribute('aria-expanded', 'true');
     }
 
     // Close menu
@@ -37,6 +38,7 @@
       mobileMenu.classList.remove('active');
       menuOverlay.classList.remove('active');
       document.body.classList.remove('mobile-menu-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
     }
 
     // Toggle menu
@@ -71,6 +73,18 @@
       link.addEventListener('click', function() {
         closeMenu();
       });
+    });
+
+    // Close menu when pressing ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+
+    // Prevent clicks inside menu from closing it
+    mobileMenu.addEventListener('click', function(e) {
+      e.stopPropagation();
     });
 
     console.log('✅ Simple mobile menu initialized successfully!');

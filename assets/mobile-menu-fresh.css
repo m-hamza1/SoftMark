@@ -432,15 +432,15 @@
   transform: scale(0.98);
 }
 
-/* Mobile & Tablet Styles - Show hamburger menu on all mobile screens */
-@media (max-width: 1023px) {
+/* Mobile & Tablet Styles - Show hamburger menu on mobiles and small tablets */
+@media (max-width: 639px) {
   .mobile-menu-toggle {
     display: flex !important;
   }
 }
 
 /* Hide on desktop only */
-@media (min-width: 1024px) {
+@media (min-width: 640px) {
   .mobile-menu,
   .mobile-menu-overlay,
   .mobile-menu-toggle {
@@ -451,4 +451,28 @@
 /* Prevent body scroll when menu is open */
 body.mobile-menu-open {
   overflow: hidden;
+}
+
+/* Responsive Header Adjustments */
+@media (max-width: 640px) {
+  .mobile-menu {
+    width: 280px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .mobile-menu {
+    width: 320px;
+  }
+}
+
+/* Ensure contact info doesn't overflow on medium screens */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .contact-item {
+    font-size: 0.85rem;
+  }
+  
+  .contact-item span {
+    font-size: 0.8rem;
+  }
 }

@@ -437,6 +437,33 @@
   .mobile-menu-toggle {
     display: flex !important;
   }
+  
+  .mobile-menu {
+    padding: 1rem 1rem;
+    width: 280px;
+  }
+  
+  .mobile-menu-header {
+    padding: 0 0 1rem 0;
+  }
+  
+  .mobile-menu-link {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .mobile-menu-booking {
+    padding: 1rem;
+  }
+  
+  .mobile-menu-contact {
+    padding-top: 1rem;
+  }
+  
+  .contact-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
 }
 
 /* Hide on desktop only */
@@ -454,9 +481,61 @@ body.mobile-menu-open {
 }
 
 /* Responsive Header Adjustments */
+@media (max-width: 480px) {
+  .mobile-menu {
+    width: 100%;
+    padding: 0.75rem 0.75rem;
+  }
+  
+  .mobile-menu-header {
+    padding: 0 0 0.75rem 0;
+  }
+  
+  .mobile-menu-link {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.85rem;
+  }
+  
+  .mobile-menu-booking {
+    padding: 0.75rem;
+  }
+  
+  .mobile-menu-contact {
+    padding-top: 0.75rem;
+  }
+  
+  .contact-item {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8rem;
+  }
+}
+
 @media (max-width: 640px) {
   .mobile-menu {
     width: 280px;
+    padding: 1rem 1rem;
+  }
+  
+  .mobile-menu-header {
+    padding: 0 0 1rem 0;
+  }
+  
+  .mobile-menu-link {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .mobile-menu-booking {
+    padding: 1rem;
+  }
+  
+  .mobile-menu-contact {
+    padding-top: 1rem;
+  }
+  
+  .contact-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
   }
 }
 

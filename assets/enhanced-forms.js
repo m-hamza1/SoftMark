@@ -75,6 +75,8 @@ function showFieldError(field, message) {
 // Enhanced modal functionality
 function enhanceModal() {
     const modal = document.getElementById('modal');
+    if (!modal) return; // Exit if modal doesn't exist on this page
+
     const backdrop = modal.querySelector('.backdrop');
 
     // Add loading animation to form submissions

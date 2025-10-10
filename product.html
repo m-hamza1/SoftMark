@@ -444,6 +444,9 @@
         if (tzLabel) tzLabel.textContent = 'Local time';
       }
 
+      const pad = (n) => String(n).padStart(2, '0');
+      const keyFromDate = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
       const today = new Date();
       const currentKey = keyFromDate(today);
       const events = {
@@ -457,9 +460,6 @@
       let selected = new Date();
       let viewYear = selected.getFullYear();
       let viewMonth = selected.getMonth();
-
-      const pad = (n) => String(n).padStart(2, '0');
-      const keyFromDate = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
       const fmtMonthYear = (y, m) => new Intl.DateTimeFormat(undefined, { month: 'long', year: 'numeric' }).format(new Date(y, m, 1));
       const to12h = (hhmm) => {
         const [h, m] = hhmm.split(':').map(Number);

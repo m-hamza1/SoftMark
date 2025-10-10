@@ -1,10 +1,53 @@
 /* Hero Section Styles */
+
+/* Hero Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
 .hero-title {
   font-size: 2.25rem;
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 @media (min-width: 640px) {
@@ -31,6 +74,7 @@
   color: rgb(161 161 170);
   margin-bottom: 2rem;
   max-width: 32rem;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
 @media (min-width: 640px) {
@@ -50,6 +94,11 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.875rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.hero-glow {
+  animation: glowPulse 4s ease-in-out infinite;
 }
 
 /* Mobile Styles */
@@ -180,4 +229,5 @@
   gap: 1rem;
   margin-top: 2rem;
   align-items: center;
+  animation: scaleIn 0.6s ease-out 0.4s both;
 }

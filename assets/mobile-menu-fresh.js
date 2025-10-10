@@ -26,8 +26,8 @@
     // Open menu
     function openMenu() {
       console.log('📱 Opening simple mobile menu');
-      mobileMenu.classList.add('active');
-      menuOverlay.classList.add('active');
+      if (mobileMenu) mobileMenu.classList.add('active');
+      if (menuOverlay) menuOverlay.classList.add('active');
       document.body.classList.add('mobile-menu-open');
       menuToggle.setAttribute('aria-expanded', 'true');
     }
@@ -35,8 +35,8 @@
     // Close menu
     function closeMenu() {
       console.log('❌ Closing simple mobile menu');
-      mobileMenu.classList.remove('active');
-      menuOverlay.classList.remove('active');
+      if (mobileMenu) mobileMenu.classList.remove('active');
+      if (menuOverlay) menuOverlay.classList.remove('active');
       document.body.classList.remove('mobile-menu-open');
       menuToggle.setAttribute('aria-expanded', 'false');
     }
@@ -46,7 +46,7 @@
       e.preventDefault();
       console.log('🔘 Simple menu toggle clicked');
 
-      if (mobileMenu.classList.contains('active')) {
+      if (mobileMenu && mobileMenu.classList.contains('active')) {
         closeMenu();
       } else {
         openMenu();
@@ -77,15 +77,17 @@
 
     // Close menu when pressing ESC key
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+      if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
         closeMenu();
       }
     });
 
     // Prevent clicks inside menu from closing it
-    mobileMenu.addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
+    if (mobileMenu) {
+      mobileMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    }
 
     console.log('✅ Simple mobile menu initialized successfully!');
   }

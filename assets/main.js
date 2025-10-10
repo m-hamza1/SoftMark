@@ -46,14 +46,12 @@ window.openModal = function(type = 'consultation') {
     void modal.offsetHeight;
 
     // Add visible class
-    requestAnimationFrame(() => {
-        modal.classList.remove('opacity-0');
-        const modalContent = modal.querySelector('.modal-content');
-        if (modalContent) {
-            modalContent.style.transform = 'scale(1)';
-            modalContent.style.opacity = '1';
-        }
-    });
+    modal.classList.remove('opacity-0');
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        modalContent.style.transform = 'scale(1)';
+        modalContent.style.opacity = '1';
+    }
 };// Close modal function - Updated to handle specific modal IDs
 window.closeModal = function(modalId = null) {
     // If no modalId provided, try to find which modal is open

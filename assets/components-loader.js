@@ -50,19 +50,16 @@ async function loadComponents() {
             }
         }
 
-        // Load Booking Modal (only on index.html)
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        if (currentPage === 'index.html') {
-            const bookingModalPlaceholder = document.getElementById('booking-modal-placeholder');
-            if (bookingModalPlaceholder) {
-                const bookingModalResponse = await fetch('components/booking-modal.html');
-                if (bookingModalResponse.ok) {
-                    const bookingModalHtml = await bookingModalResponse.text();
-                    bookingModalPlaceholder.innerHTML = bookingModalHtml;
-                    console.log('✅ Booking modal component loaded successfully');
-                } else {
-                    console.error('Failed to load booking modal component');
-                }
+        // Load Booking Modal (on all pages with consultation buttons)
+        const bookingModalPlaceholder = document.getElementById('booking-modal-placeholder');
+        if (bookingModalPlaceholder) {
+            const bookingModalResponse = await fetch('components/booking-modal.html');
+            if (bookingModalResponse.ok) {
+                const bookingModalHtml = await bookingModalResponse.text();
+                bookingModalPlaceholder.innerHTML = bookingModalHtml;
+                console.log('✅ Booking modal component loaded successfully');
+            } else {
+                console.error('Failed to load booking modal component');
             }
         }
 

@@ -28,24 +28,14 @@ function initModals() {
     });
 }
 
-// Open modal function - Updated to handle cross-page modal loading
+// Open modal function - Updated to use separate modals
 window.openModal = function(type = 'consultation') {
     let modalId = type; // 'trial' or 'consultation'
-    let modal = document.getElementById(modalId);
+    const modal = document.getElementById(modalId);
 
     if (!modal) {
-        // If modal doesn't exist on current page, check if we're on index.html
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        if (currentPage !== 'index.html') {
-            // Redirect to index.html with modal parameter
-            const url = new URL(window.location.origin + '/index.html');
-            url.searchParams.set('modal', type);
-            window.location.href = url.toString();
-            return;
-        } else {
-            console.error('Modal element not found:', modalId);
-            return;
-        }
+        console.error('Modal element not found:', modalId);
+        return;
     }
 
     // Show modal with animation
@@ -64,9 +54,7 @@ window.openModal = function(type = 'consultation') {
             modalContent.style.opacity = '1';
         }
     });
-};
-
-// Close modal function - Updated to handle specific modal IDs
+};// Close modal function - Updated to handle specific modal IDs
 window.closeModal = function(modalId = null) {
     // If no modalId provided, try to find which modal is open
     if (!modalId) {

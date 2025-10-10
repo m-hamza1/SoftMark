@@ -15,25 +15,6 @@
   <script src="assets/components-loader.js"></script>
   <script src="assets/mobile-menu-fresh.js"></script>
   <script src="assets/chatbot.js"></script>
-
-  <!-- Check for modal parameter and open modal -->
-  <script>
-    // Check URL parameters for modal to open
-    document.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const modalToOpen = urlParams.get('modal');
-      if (modalToOpen) {
-        // Wait for components to load, then open modal
-        setTimeout(() => {
-          openModal(modalToOpen);
-          // Clean up URL
-          const url = new URL(window.location);
-          url.searchParams.delete('modal');
-          window.history.replaceState({}, '', url);
-        }, 1000); // Wait 1 second for components to load
-      }
-    });
-  </script>
   <title>SoftMark — Transform Your Business with AI Automation</title>
   <script>
     tailwind.config = {

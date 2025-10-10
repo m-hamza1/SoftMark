@@ -15,6 +15,25 @@
   <script src="assets/components-loader.js"></script>
   <script src="assets/mobile-menu-fresh.js"></script>
   <script src="assets/chatbot.js"></script>
+
+  <!-- Check for modal parameter and open modal -->
+  <script>
+    // Check URL parameters for modal to open
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const modalToOpen = urlParams.get('modal');
+      if (modalToOpen) {
+        // Wait for components to load, then open modal
+        setTimeout(() => {
+          openModal(modalToOpen);
+          // Clean up URL
+          const url = new URL(window.location);
+          url.searchParams.delete('modal');
+          window.history.replaceState({}, '', url);
+        }, 1000); // Wait 1 second for components to load
+      }
+    });
+  </script>
   <title>SoftMark — Transform Your Business with AI Automation</title>
   <script>
     tailwind.config = {
@@ -1032,69 +1051,6 @@
         </div>
       </div>
 
-      <!-- Consultation Modal -->
-      <div id="consultation" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[100000] hidden opacity-0 transition-all duration-500 ease-out">
-        <div class="flex items-center justify-center min-h-screen p-4">
-          <div class="modal-content bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl max-w-lg w-full p-8 transform scale-90 transition-all duration-500 ease-out shadow-violet-500/20">
-            <div class="flex justify-between items-center mb-8">
-              <h2 class="text-2xl font-semibold text-white drop-shadow-lg">Book Your Free Consultation</h2>
-              <button onclick="closeModal('consultation')" class="text-zinc-300 hover:text-white transition-all duration-300 hover:scale-110 hover:rotate-90 p-2 rounded-full hover:bg-white/10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
-              </button>
-            </div>
-            <form id="consultationForm" action="process-booking.php" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div>
-                <label for="cons-country" class="block text-sm font-medium text-zinc-200 mb-2.5">Country *</label>
-                <select id="cons-country" name="country" required class="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm text-sm">
-                  <option value="" disabled selected>Select your country</option>
-                  <option value="PK">Pakistan</option>
-                  <option value="US">United States</option>
-                  <option value="UK">United Kingdom</option>
-                  <option value="CA">Canada</option>
-                  <option value="AU">Australia</option>
-                  <option value="DE">Germany</option>
-                  <option value="FR">France</option>
-                  <option value="IN">India</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div>
-                <label for="cons-name" class="block text-sm font-medium text-zinc-200 mb-2.5">Full Name *</label>
-                <input type="text" id="cons-name" name="name" required class="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm text-sm">
-              </div>
-              <div>
-                <label for="cons-email" class="block text-sm font-medium text-zinc-200 mb-2.5">Email Address *</label>
-                <input type="email" id="cons-email" name="email" required class="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm text-sm">
-              </div>
-              <div>
-                <label for="cons-date" class="block text-sm font-medium text-zinc-200 mb-2.5">Date *</label>
-                <input type="date" id="cons-date" name="date" required class="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm text-sm">
-              </div>
-              <div class="col-span-2">
-                <label for="cons-time" class="block text-sm font-medium text-zinc-200 mb-2.5">Time *</label>
-                <input type="time" id="cons-time" name="time" required class="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm text-sm">
-              </div>
-              <div class="col-span-2">
-                <label for="cons-message" class="block text-sm font-medium text-zinc-200 mb-2.5">Message (Optional)</label>
-                <textarea id="cons-message" name="message" rows="3" class="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300 focus:bg-white/10 backdrop-blur-sm resize-none text-sm"></textarea>
-              </div>
-              <div class="col-span-2 flex gap-4 pt-4">
-                <button type="submit" class="flex-1 bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-semibold py-3.5 px-4 rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-violet-500/30 active:scale-95 text-base">
-                  <span class="flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
-                    Book Meeting
-                  </span>
-                </button>
-                <button type="button" onclick="closeModal('consultation')" class="flex-1 bg-white/10 text-zinc-200 font-medium py-3.5 px-4 rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 backdrop-blur-sm text-base">Cancel</button>
-              </div>
-            </form>
-            <div class="mt-6 text-center text-xs text-zinc-400">
-              <p>By submitting, you agree to our <a href="#" class="text-violet-400 hover:text-violet-300 underline">Privacy Policy</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Video Modal -->
       <div id="videoModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-50 hidden opacity-0 transition-all duration-500 ease-out">
         <div class="flex items-center justify-center min-h-screen p-4">
@@ -1221,5 +1177,8 @@
         openAIChat();
       }
     </script>
+
+    <!-- Booking Modal Placeholder -->
+    <div id="booking-modal-placeholder"></div>
 
 </body></html>

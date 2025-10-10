@@ -28,23 +28,33 @@ function initModals() {
     });
 }
 
-// Open modal function - Updated to use separate modals
+// Open modal function - Updated to handle cross-page modal loading
 window.openModal = function(type = 'consultation') {
     let modalId = type; // 'trial' or 'consultation'
-    const modal = document.getElementById(modalId);
-    
+    let modal = document.getElementById(modalId);
+
     if (!modal) {
-        console.error('Modal element not found:', modalId);
-        return;
+        // If modal doesn't exist on current page, check if we're on index.html
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        if (currentPage !== 'index.html') {
+            // Redirect to index.html with modal parameter
+            const url = new URL(window.location.origin + '/index.html');
+            url.searchParams.set('modal', type);
+            window.location.href = url.toString();
+            return;
+        } else {
+            console.error('Modal element not found:', modalId);
+            return;
+        }
     }
-    
+
     // Show modal with animation
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    
+
     // Force reflow
     void modal.offsetHeight;
-    
+
     // Add visible class
     requestAnimationFrame(() => {
         modal.classList.remove('opacity-0');

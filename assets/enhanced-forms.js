@@ -93,47 +93,69 @@ function enhanceModal() {
 
     // Smooth modal animations
     window.openModal = function(type = 'consultation') {
-        const modal = document.getElementById('modal');
-        if (!modal) return;
+        let modalId = type; // 'trial', 'consultation', or 'modal'
+        const modal = document.getElementById(modalId);
+        if (!modal) {
+            console.error('Modal element not found:', modalId);
+            return;
+        }
 
-        // Update form type and title
-        const form = modal.querySelector('form');
-        const title = modal.querySelector('h2');
-        
-        if (form && title) {
-            if (type === 'consultation') {
-                form.id = 'bookingForm';
-                title.textContent = 'Book Your Free Consultation';
-            } else if (type === 'trial') {
-                form.id = 'trialForm';
-                title.textContent = 'Start Your Free Trial';
+        // Update form type and title if it's the generic modal
+        if (modalId === 'modal') {
+            const form = modal.querySelector('form');
+            const title = modal.querySelector('h2');
+            
+            if (form && title) {
+                if (type === 'consultation') {
+                    form.id = 'bookingForm';
+                    title.textContent = 'Book Your Free Consultation';
+                } else if (type === 'trial') {
+                    form.id = 'trialForm';
+                    title.textContent = 'Start Your Free Trial';
+                }
             }
         }
 
         // Show modal with animation
         modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        // Force reflow
+        void modal.offsetHeight;
+
+        // Add visible class
         requestAnimationFrame(() => {
             modal.classList.remove('opacity-0');
-            const content = modal.querySelector('.modal-content');
-            if (content) {
-                content.classList.add('modal-enter');
+            const modalContent = modal.querySelector('.modal-content');
+            if (modalContent) {
+                modalContent.style.transform = 'scale(1)';
+                modalContent.style.opacity = '1';
             }
         });
-
-        // Prevent page scrolling
-        document.body.style.overflow = 'hidden';
     };
 
-    window.closeModal = function() {
-        const modal = document.getElementById('modal');
+    window.closeModal = function(modalId = null) {
+        // If no modalId provided, try to find which modal is open
+        if (!modalId) {
+            const openModals = ['trial', 'consultation', 'modal'];
+            for (const id of openModals) {
+                const modal = document.getElementById(id);
+                if (modal && !modal.classList.contains('hidden')) {
+                    modalId = id;
+                    break;
+                }
+            }
+        }
+        
+        const modal = document.getElementById(modalId);
         if (!modal) return;
 
         const content = modal.querySelector('.modal-content');
         if (content) {
-            content.classList.remove('modal-enter');
-            content.classList.add('modal-exit');
+            content.style.transform = 'scale(0.9)';
+            content.style.opacity = '0';
         }
-
+        
         modal.classList.add('opacity-0');
 
         // Wait for animation to complete
@@ -141,9 +163,10 @@ function enhanceModal() {
             modal.classList.add('hidden');
             document.body.style.overflow = '';
             if (content) {
-                content.classList.remove('modal-exit');
+                content.style.transform = '';
+                content.style.opacity = '';
             }
-        }, 600);
+        }, 300);
     };
 }
 

@@ -112,3 +112,8 @@ function initializeForms() {
 document.addEventListener('DOMContentLoaded', () => {
     initializeForms();
 });
+
+// Also initialize when components are loaded (for dynamically loaded forms)
+document.addEventListener('componentsLoaded', () => {
+    initializeForms();
+});

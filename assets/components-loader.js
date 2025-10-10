@@ -10,6 +10,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function loadComponents() {
     try {
+        // Load Booking Modal first (on all pages with consultation buttons)
+        const bookingModalPlaceholder = document.getElementById('booking-modal-placeholder');
+        if (bookingModalPlaceholder) {
+            const bookingModalResponse = await fetch('components/booking-modal.html');
+            if (bookingModalResponse.ok) {
+                const bookingModalHtml = await bookingModalResponse.text();
+                bookingModalPlaceholder.innerHTML = bookingModalHtml;
+                console.log('✅ Booking modal component loaded successfully');
+            } else {
+                console.error('Failed to load booking modal component');
+            }
+        }
+
         // Load Header
         const headerPlaceholder = document.getElementById('header-placeholder');
         if (headerPlaceholder) {
@@ -50,21 +63,11 @@ async function loadComponents() {
             }
         }
 
-        // Load Booking Modal (on all pages with consultation buttons)
-        const bookingModalPlaceholder = document.getElementById('booking-modal-placeholder');
-        if (bookingModalPlaceholder) {
-            const bookingModalResponse = await fetch('components/booking-modal.html');
-            if (bookingModalResponse.ok) {
-                const bookingModalHtml = await bookingModalResponse.text();
-                bookingModalPlaceholder.innerHTML = bookingModalHtml;
-                console.log('✅ Booking modal component loaded successfully');
-            } else {
-                console.error('Failed to load booking modal component');
-            }
-        }
-
         // Highlight active nav link
         highlightActiveNavLink();
+        
+        // Dispatch event to notify components are loaded
+        document.dispatchEvent(new CustomEvent('componentsLoaded'));
     } catch (error) {
         console.error('Error loading components:', error);
     }

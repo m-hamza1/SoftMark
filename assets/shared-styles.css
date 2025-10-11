@@ -1,33 +1,28 @@
-/* Shared Styles for SoftMark Website */
+/* Shared Styles for SoftMark Website - Performance Optimized */
 
-/* Mobile Menu Base Styles - DISABLED (Using mobile-menu-fresh.css) */
-/* #mobile-menu {
-  display: none;
+/* Performance: Enable GPU acceleration for smooth rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-
-#mobile-menu.open {
-  display: block !important;
-} */
 
 /* Global Styles */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Base Background and Typography */
 html {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch; /* Smooth scroll for iOS */
 }
 
+/* Base Background and Typography */
 body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   color: #f4f4f5; /* zinc-100 */
   background-color: #0a0a12;
   font-family: 'Inter', sans-serif;
   overflow-y: auto;
   scroll-behavior: smooth;
+  /* Performance optimizations */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: scroll-position;
 }
 
 /* Background Glow Effects */
@@ -95,6 +90,33 @@ body {
   display: inline-block;
   text-align: center;
   line-height: 1.5;
+}
+
+/* Performance: GPU-accelerated transforms */
+button, a, .hover-lift, .btn-gradient {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Optimize animations for 60fps */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .btn-gradient:hover {

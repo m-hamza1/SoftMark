@@ -16,6 +16,126 @@
   <script src="assets/mobile-menu-fresh.js"></script>
   <script src="assets/chatbot.js"></script>
   <title>SoftMark — Transform Your Business with AI Automation</title>
+  
+  <!-- Animation Styles -->
+  <style>
+    /* Fade In Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+    }
+    
+    /* Animation Classes */
+    .animate-on-scroll {
+      opacity: 0;
+      transition: all 0.6s ease-out;
+    }
+    
+    .animate-on-scroll.animated {
+      opacity: 1;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    .slide-in-left {
+      animation: slideInLeft 0.8s ease-out forwards;
+    }
+    
+    .slide-in-right {
+      animation: slideInRight 0.8s ease-out forwards;
+    }
+    
+    .scale-in {
+      animation: scaleIn 0.6s ease-out forwards;
+    }
+    
+    /* Stagger Delays */
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+    
+    /* Hover Animations */
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+    }
+    
+    .hover-glow:hover {
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    }
+  </style>
   <script>
     tailwind.config = {
       theme: {
@@ -54,21 +174,21 @@
       </div>
       <div class="max-w-6xl sm:px-6 lg:px-8 sm:pt-16 bg-[url('src/images/img.png')] bg-cover mt-0 mr-auto mb-0 ml-auto pt-0 pr-0 pl-0">
         <div class="flex flex-col mb-30 space-y-6 items-start max-w-4xl">
-          <div class="mb-6">
+          <div class="mb-6 fade-in">
             <span class="hero-tag inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-200 backdrop-blur">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sparkles" class="lucide lucide-sparkles h-3.5 w-3.5 text-violet-300"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
                New: Realtime graph sync just landed
             </span>
           </div>
 
-          <h1 class="hero-title text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight">
+          <h1 class="hero-title text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight fade-in delay-100">
             Transform Your Business with <span class="gradient-text">  AI Automation </span>
           </h1>
-          <p class="hero-subtitle max-w-2xl sm:text-lg text-base text-zinc-300 mt-0">
+          <p class="hero-subtitle max-w-2xl sm:text-lg text-base text-zinc-300 mt-0 fade-in delay-200">
             Streamline operations, boost productivity, and drive growth with intelligent automation solutions tailored for modern businesses.
           </p>
 
-          <div class="hero-buttons flex flex-col gap-3 mt-8 mb-0 pb-[60px] items-center sm:flex-row sm:gap-3">
+          <div class="hero-buttons flex flex-col gap-3 mt-8 mb-0 pb-[60px] items-center sm:flex-row sm:gap-3 fade-in delay-300">
             <a href="pricing.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 shadow-violet-900/25 text-sm font-semibold text-white bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full pt-3 pr-6 pb-3 pl-6 sm:pt-2.5 sm:pr-5 sm:pb-2.5 sm:pl-5 shadow-lg transform-gpu transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-6px_rgba(139,92,246,0.4)] hover:scale-[1.02] active:scale-[0.98] active:duration-75">Create your workspace<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
             <a href="#" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 hover:bg-white/5 text-sm font-medium text-zinc-200 border-white/10 border rounded-full pt-3 pr-6 pb-3 pl-6 sm:pt-2.5 sm:pr-5 sm:pb-2.5 sm:pl-5 backdrop-blur-lg transition-all duration-300">
               Compare plans
@@ -77,7 +197,7 @@
         </div>
 
         <!-- App Preview -->
-        <div class="relative sm:-mt-4 -mt-2">
+        <div class="relative sm:-mt-4 -mt-2 scale-in delay-400">
           <!-- Glow -->
           <div class="absolute inset-0 -top-8 mx-auto h-32 sm:h-56 max-w-5xl rounded-[28px] bg-gradient-to-r from-violet-500/30 via-fuchsia-500/20 to-indigo-500/30 blur-2xl"></div>
 
@@ -1159,6 +1279,43 @@
       function openTawkWidget() {
         openAIChat();
       }
+    </script>
+
+    <!-- Scroll Animation Script -->
+    <script>
+      // Intersection Observer for scroll animations
+      document.addEventListener('DOMContentLoaded', function() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animated');
+            }
+          });
+        }, observerOptions);
+        
+        // Observe all elements with animation classes
+        const animatedElements = document.querySelectorAll('.animate-on-scroll, .connected-account-card, .note-item, .meeting-item');
+        animatedElements.forEach(el => observer.observe(el));
+        
+        // Add stagger animation to cards
+        const cards = document.querySelectorAll('.connected-account-card, .note-item, .meeting-item');
+        cards.forEach((card, index) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          card.style.transition = 'all 0.6s ease-out';
+          card.style.transitionDelay = `${index * 0.1}s`;
+          
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 100);
+        });
+      });
     </script>
 
     <!-- Booking Modal Placeholder -->
